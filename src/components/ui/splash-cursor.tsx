@@ -130,7 +130,7 @@ export default function SplashCursor({
       }
 
       if (!gl) {
-        throw new Error('Unable to initialize WebGL.')
+        return { gl: null, ext: null }
       }
 
       const isWebGL2 = 'drawBuffers' in gl
@@ -293,6 +293,7 @@ export default function SplashCursor({
       keywords: string[] | null = null,
     ): WebGLShader | null {
       const shaderSource = addKeywords(source, keywords)
+      if (!gl) return null
       const shader = gl.createShader(type)
       if (!shader) return null
       gl.shaderSource(shader, shaderSource)
@@ -309,6 +310,7 @@ export default function SplashCursor({
       fragmentShader: WebGLShader | null,
     ): WebGLProgram | null {
       if (!vertexShader || !fragmentShader) return null
+      if (!gl) return null
       const program = gl.createProgram()
       if (!program) return null
       gl.attachShader(program, vertexShader)
@@ -323,6 +325,7 @@ export default function SplashCursor({
 
     function getUniforms(program: WebGLProgram) {
       const uniforms: Record<string, WebGLUniformLocation | null> = {}
+      if (!gl) return uniforms
       const uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS)
       for (let i = 0; i < uniformCount; i++) {
         const uniformInfo = gl.getActiveUniform(program, i)
@@ -349,6 +352,7 @@ export default function SplashCursor({
       }
 
       bind() {
+        if (!gl) return null
         if (this.program) gl.useProgram(this.program)
       }
     }
@@ -378,6 +382,7 @@ export default function SplashCursor({
         }
         let program = this.programs[hash]
         if (program == null) {
+          if (!gl) return null
           const fragmentShader = compileShader(
             gl.FRAGMENT_SHADER,
             this.fragmentShaderSource,
@@ -395,6 +400,7 @@ export default function SplashCursor({
 
       bind() {
         if (this.activeProgram) {
+          if (!gl) return
           gl.useProgram(this.activeProgram)
         }
       }
@@ -784,6 +790,16 @@ export default function SplashCursor({
       type: number,
       param: number,
     ): FBO {
+      if (!gl)
+        return {
+          texture: 0,
+          fbo: 0,
+          width: 0,
+          height: 0,
+          texelSizeX: 0,
+          texelSizeY: 0,
+          attach: () => 0,
+        }
       gl.activeTexture(gl.TEXTURE0)
       const texture = gl.createTexture()!
       gl.bindTexture(gl.TEXTURE_2D, texture)
@@ -868,6 +884,7 @@ export default function SplashCursor({
     ) {
       const newFBO = createFBO(w, h, internalFormat, format, type, param)
       copyProgram.bind()
+      if (!gl) return
       if (copyProgram.uniforms.uTexture)
         gl.uniform1i(copyProgram.uniforms.uTexture, target.attach(0))
       blit(newFBO, false)
@@ -882,9 +899,11 @@ export default function SplashCursor({
       format: number,
       type: number,
       param: number,
-    ) {
+    ): DoubleFBO {
       if (target.width === w && target.height === h) return target
-      target.read = resizeFBO(
+
+      // Отримуємо новий FBO для читання
+      const newRead = resizeFBO(
         target.read,
         w,
         h,
@@ -893,6 +912,13 @@ export default function SplashCursor({
         type,
         param,
       )
+      // Якщо resizeFBO повернув undefined, викидаємо помилку
+      if (newRead === undefined) {
+        throw new Error('resizeFBO повернув undefined')
+      }
+      target.read = newRead
+
+      // Створюємо новий FBO для запису
       target.write = createFBO(w, h, internalFormat, format, type, param)
       target.width = w
       target.height = h
@@ -905,6 +931,7 @@ export default function SplashCursor({
       const simRes = getResolution(config.SIM_RESOLUTION!)
       const dyeRes = getResolution(config.DYE_RESOLUTION!)
 
+      if (!gl) return
       const texType = ext.halfFloatTexType
       const rgba = ext.formatRGBA
       const rg = ext.formatRG
@@ -987,6 +1014,7 @@ export default function SplashCursor({
     }
 
     function getResolution(resolution: number) {
+      if (!gl) return { width: 0, height: 0 }
       const w = gl.drawingBufferWidth
       const h = gl.drawingBufferHeight
       const aspectRatio = w / h
@@ -1060,6 +1088,7 @@ export default function SplashCursor({
     }
 
     function step(dt: number) {
+      if (!gl) return
       gl.disable(gl.BLEND)
 
       // Curl
@@ -1247,12 +1276,14 @@ export default function SplashCursor({
     }
 
     function render(target: FBO | null) {
+      if (!gl) return
       gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA)
       gl.enable(gl.BLEND)
       drawDisplay(target)
     }
 
     function drawDisplay(target: FBO | null) {
+      if (!gl) return
       const width = target ? target.width : gl.drawingBufferWidth
       const height = target ? target.height : gl.drawingBufferHeight
       displayMaterial.bind()
@@ -1291,21 +1322,26 @@ export default function SplashCursor({
     ) {
       splatProgram.bind()
       if (splatProgram.uniforms.uTarget) {
+        if (!gl) return
         gl.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0))
       }
       if (splatProgram.uniforms.aspectRatio) {
+        if (!gl) return
         gl.uniform1f(
           splatProgram.uniforms.aspectRatio,
           canvas!.width / canvas!.height,
         )
       }
       if (splatProgram.uniforms.point) {
+        if (!gl) return
         gl.uniform2f(splatProgram.uniforms.point, x, y)
       }
       if (splatProgram.uniforms.color) {
+        if (!gl) return
         gl.uniform3f(splatProgram.uniforms.color, dx, dy, 0)
       }
       if (splatProgram.uniforms.radius) {
+        if (!gl) return
         gl.uniform1f(
           splatProgram.uniforms.radius,
           correctRadius(config.SPLAT_RADIUS / 100)!,
@@ -1315,9 +1351,11 @@ export default function SplashCursor({
       velocity.swap()
 
       if (splatProgram.uniforms.uTarget) {
+        if (!gl) return
         gl.uniform1i(splatProgram.uniforms.uTarget, dye.read.attach(0))
       }
       if (splatProgram.uniforms.color) {
+        if (!gl) return
         gl.uniform3f(splatProgram.uniforms.color, color.r, color.g, color.b)
       }
       blit(dye.write)

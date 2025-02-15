@@ -4,6 +4,8 @@ import { FC, ReactNode } from 'react'
 import { useLocale } from 'use-intl'
 import { useTranslations } from 'next-intl'
 import { Navbar } from '@/components/layout/header/nav-bar'
+import ThemeChange from '@/components/layout/header/theme-change'
+import LanguageChange from '@/components/layout/header/language-change/language-change'
 
 interface IMenuProps {
   logo?: ReactNode
@@ -36,7 +38,8 @@ const Header: FC<IMenuProps> = ({ logo }) => {
                 </ul>
               </nav>
               <div className="hidden items-center gap-[15px] lg:flex">
-                ThemeChange LanguageChange
+                <ThemeChange />
+                <LanguageChange />
               </div>
               MobileMenu
             </div>
@@ -47,7 +50,7 @@ const Header: FC<IMenuProps> = ({ logo }) => {
         </div>
       </header>
       <div className="absolute mt-[15px] flex w-full justify-end pr-[30px] lg:hidden">
-        ThemeChange
+        <ThemeChange />
       </div>
       <div className="relative mx-auto max-w-[1842px]">
         <div className="animate-scale-in-out bg-group-pattern-light dark:bg-group-pattern absolute -right-[50px] -top-[170px] -z-10 hidden h-[300px] w-[300px] bg-cover bg-center lg:block dark:opacity-[.1]" />
