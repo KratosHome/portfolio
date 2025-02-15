@@ -5,7 +5,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { getLocale } from 'next-intl/server'
 import localFont from 'next/font/local'
 import { GoogleTagManager } from '@/components/providers/google-tag-manager'
-import SplashCursor from '@/components/ui/splash-cursor'
 
 export const dynamic = 'force-dynamic'
 
@@ -59,7 +58,6 @@ export default async function LocaleLayout({
       <body
         className={`${sansation.variable} max-w-screen font-sansation relative overflow-x-hidden bg-white antialiased dark:bg-black`}
       >
-        <SplashCursor SPLAT_RADIUS={0.1} />
         {children}
       </body>
       <Analytics />

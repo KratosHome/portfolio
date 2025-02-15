@@ -53,7 +53,10 @@ const Header: FC<IMenuProps> = ({ logo }) => {
         <ThemeChange />
       </div>
       <div className="relative mx-auto max-w-[1842px]">
-        <div className="animate-scale-in-out bg-group-pattern-light dark:bg-group-pattern absolute -right-[50px] -top-[170px] -z-10 hidden h-[300px] w-[300px] bg-cover bg-center lg:block dark:opacity-[.1]" />
+        <div
+          // prettier-ignore
+          className="animate-scale-in-out bg-group-pattern-light dark:bg-group-pattern absolute -right-[50px] -top-[170px] -z-10 hidden h-[300px] w-[300px] bg-cover bg-center lg:block dark:opacity-[.1]"
+        />
       </div>
     </>
   )

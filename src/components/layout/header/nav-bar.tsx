@@ -10,7 +10,7 @@ interface NavbarProps {
 export function Navbar({ className }: NavbarProps) {
   const [active, setActive] = useState<string | null>(null)
   return (
-    <div className={cn('mx-auto max-w-2xl', className)}>
+    <div className={cn('z-50 mx-auto max-w-2xl', className)}>
       <Menu setActive={setActive}>
         <MenuItem
           setActive={setActive}

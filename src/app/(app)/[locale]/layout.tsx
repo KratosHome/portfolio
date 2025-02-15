@@ -11,7 +11,7 @@ export default async function LocaleLayout({
   children: ReactNode
 }) {
   const messages = await getMessages()
-
+  //         <SplashCursor SPLAT_RADIUS={0.1} />
   return (
     <>
       <ThemeProvider attribute="class" enableSystem disableTransitionOnChange>

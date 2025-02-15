@@ -52,7 +52,7 @@ export const MenuItem = ({
           transition={transition}
         >
           {active === item && (
-            <div className="absolute left-1/2 top-[calc(100%_+_1.2rem)] -translate-x-1/2 transform pt-4">
+            <div className="absolute left-1/2 top-[calc(100%_-_0.5rem)] z-50 -translate-x-1/2 transform pt-4">
               <motion.div
                 transition={transition}
                 layoutId="active"
@@ -80,7 +80,7 @@ export const Menu = ({
   return (
     <nav
       onMouseLeave={() => setActive(null)}
-      className="shadow-input relative flex justify-center space-x-4 rounded-full border-transparent bg-white px-8 py-6 dark:border-white/[0.2] dark:bg-black"
+      className="relative flex justify-center space-x-4"
     >
       {children}
     </nav>
