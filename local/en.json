@@ -4,7 +4,8 @@
     "login": "Login",
     "switch-dark": "Switch to dark theme",
     "switch-light": "Switch to light theme",
-    "switch-local": "Open language switch modal",
+    "switch-local": "Switch language",
+    "choose_language": "Choose language",
     "arrow-menu": "Arrow Menu"
   },
   "footer": {

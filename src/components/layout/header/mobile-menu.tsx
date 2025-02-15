@@ -1,20 +1,15 @@
 'use client'
-import { useState, useEffect, FC } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocale } from 'use-intl'
 import Link from 'next/link'
+import LanguageChange from '@/components/layout/header/language-change'
+import { menuData } from '@/data/menu-data'
 
-interface MenuItem {
-  name: string
-  link: string
-}
-
-interface MobileMenuProps {
-  menu: MenuItem[]
-}
-
-export const MobileMenu: FC<MobileMenuProps> = ({ menu }) => {
+export const MobileMenu = () => {
   const locale = useLocale()
   const [opened, setOpened] = useState(false)
+
+  const menu = menuData[locale as keyof typeof menuData]
 
   useEffect(() => {
     if (opened) {
@@ -45,7 +40,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({ menu }) => {
         <div className={menuClasses} onClick={(e) => e.stopPropagation()}>
           <nav>
             <ul>
-              {menu.map((item: MenuItem) => (
+              {menu.map((item) => (
                 <Link
                   key={item.name}
                   href={`/${locale}/${item.link}`}
@@ -65,7 +60,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({ menu }) => {
             >
               Login
             </Link>
-            LanguageChange
+            <LanguageChange isMobile={true} />
           </div>
         </div>
       </div>

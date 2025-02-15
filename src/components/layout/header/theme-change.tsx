@@ -6,6 +6,7 @@ import sun from '@/assets/icons/sun.svg'
 import moon from '@/assets/icons/moon.svg'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import Spinner from '@/components/ui/spinner'
 
 const ThemeChange = () => {
   const t = useTranslations('header')
@@ -42,7 +43,13 @@ const ThemeChange = () => {
     )
   }
 
-  if (!mounted) return <div className="!size-[28px]">vv</div>
+  if (!mounted)
+    return (
+      <div className="!size-[28px]">
+        {' '}
+        <Spinner />
+      </div>
+    )
 
   return (
     <div onClick={changeTheme} className="z-10 max-w-max">

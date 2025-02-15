@@ -5,7 +5,8 @@ import { useLocale } from 'use-intl'
 import { useTranslations } from 'next-intl'
 import { Navbar } from '@/components/layout/header/nav-bar'
 import ThemeChange from '@/components/layout/header/theme-change'
-import LanguageChange from '@/components/layout/header/language-change/language-change'
+import LanguageChange from '@/components/layout/header/language-change'
+import { MobileMenu } from '@/components/layout/header/mobile-menu'
 
 interface IMenuProps {
   logo?: ReactNode
@@ -41,7 +42,7 @@ const Header: FC<IMenuProps> = ({ logo }) => {
                 <ThemeChange />
                 <LanguageChange />
               </div>
-              MobileMenu
+              <MobileMenu />
             </div>
           </div>
         </div>
