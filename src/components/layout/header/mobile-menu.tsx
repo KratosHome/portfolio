@@ -2,7 +2,6 @@
 import { useState, useEffect, FC } from 'react'
 import { useLocale } from 'use-intl'
 import Link from 'next/link'
-import LanguageChange from '@/components/features/language-change/language-change'
 
 interface MenuItem {
   name: string
@@ -66,7 +65,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({ menu }) => {
             >
               Login
             </Link>
-            <LanguageChange isMobile={true} />
+            LanguageChange
           </div>
         </div>
       </div>

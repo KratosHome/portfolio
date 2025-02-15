@@ -1,10 +1,5 @@
 const Home = async () => {
-
-    return (
-        <>
-            fvsdf
-        </>
-    )
+  return <>fvsdf</>
 }
 
 export default Home

@@ -156,10 +156,14 @@ export default function SplashCursor({
 
       const halfFloatTexType = isWebGL2
         ? (gl as WebGL2RenderingContext).HALF_FLOAT
-        : (halfFloat && (halfFloat as any).HALF_FLOAT_OES) || 0
+        : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (halfFloat && (halfFloat as any).HALF_FLOAT_OES) || 0
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let formatRGBA: any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let formatRG: any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let formatR: any
 
       if (isWebGL2) {
@@ -294,6 +298,7 @@ export default function SplashCursor({
       gl.shaderSource(shader, shaderSource)
       gl.compileShader(shader)
       if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        // eslint-disable-next-line no-console
         console.trace(gl.getShaderInfoLog(shader))
       }
       return shader
@@ -310,6 +315,7 @@ export default function SplashCursor({
       gl.attachShader(program, fragmentShader)
       gl.linkProgram(program)
       if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        // eslint-disable-next-line no-console
         console.trace(gl.getProgramInfoLog(program))
       }
       return program
