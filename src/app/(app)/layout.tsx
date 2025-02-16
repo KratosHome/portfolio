@@ -5,6 +5,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { getLocale } from 'next-intl/server'
 import localFont from 'next/font/local'
 import { GoogleTagManager } from '@/components/providers/google-tag-manager'
+import { Toaster } from '@/components/ui/toaster'
 
 export const dynamic = 'force-dynamic'
 
@@ -59,6 +60,7 @@ export default async function LocaleLayout({
         className={`${sansation.variable} max-w-screen font-sansation relative overflow-x-hidden bg-white antialiased dark:bg-black`}
       >
         {children}
+        <Toaster />
       </body>
       <Analytics />
     </html>

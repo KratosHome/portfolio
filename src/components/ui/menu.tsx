@@ -129,6 +129,43 @@ export const ProductItem = ({
   )
 }
 
+export const NoteItem = ({
+  title,
+  description,
+  href,
+  link,
+}: {
+  title: string
+  description: string
+  href: string
+  link?: string
+}) => {
+  const maxLength = 90
+  const shortText =
+    description.length > maxLength
+      ? description.slice(0, maxLength) + '...'
+      : description
+
+  return (
+    <Link
+      href={href}
+      className="group flex leading-[1.2] transition-all duration-300 ease-out hover:scale-105"
+      target={link ? '_blank' : undefined}
+      rel={link ? 'noopener noreferrer' : undefined}
+    >
+      <div className="transition-all duration-300 ease-out group-hover:translate-y-[-2px]">
+        <h4 className="mb-1 max-w-[19rem] text-[16px] font-bold text-black group-hover:text-primary dark:text-white">
+          {title}
+        </h4>
+        {link && <p className="text-[13px] text-blue-500">{link}</p>}
+        <p className="max-w-[16rem] text-[12px] text-neutral-700 transition-opacity duration-300 ease-out group-hover:opacity-75 dark:text-neutral-300">
+          {shortText}
+        </p>
+      </div>
+    </Link>
+  )
+}
+
 type HoveredLinkProps = React.ComponentPropsWithoutRef<typeof Link>
 
 export const HoveredLink = ({

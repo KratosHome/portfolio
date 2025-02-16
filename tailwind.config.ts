@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import plugin from 'tailwindcss/plugin'
 
 export default {
   content: [
@@ -58,5 +59,30 @@ export default {
       },
     },
   },
-  plugins: [require('tailwindcss-animate'), require('tailwind-hamburgers')],
+  plugins: [
+    require('tailwindcss-animate'),
+    require('tailwind-hamburgers'),
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.bg-hero-pattern': {
+          'background-image': "url('/assets/background/fog.png')",
+          'background-repeat': 'no-repeat',
+          'background-position': 'center',
+          'background-size': 'contain',
+        },
+        '.bg-ellipse-pattern': {
+          'background-image': "url('/assets/background/bg-ellipse.png')",
+          'background-repeat': 'no-repeat',
+          'background-position': 'center',
+          'background-size': 'contain',
+        },
+        '.bg-group-pattern': {
+          'background-image': "url('/assets/background/group.png')",
+          'background-repeat': 'no-repeat',
+          'background-position': 'center',
+          'background-size': 'contain',
+        },
+      })
+    }),
+  ],
 } satisfies Config

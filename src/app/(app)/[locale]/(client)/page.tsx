@@ -1,5 +1,11 @@
+import Hero from '@/components/client/hero/hero'
+
 const Home = async () => {
-  return <>fvsdf</>
+  return (
+    <>
+      <Hero />
+    </>
+  )
 }
 
 export default Home

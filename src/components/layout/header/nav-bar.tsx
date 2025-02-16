@@ -1,8 +1,16 @@
 'use client'
 import React, { useState } from 'react'
 import { cn } from '@/lib/cn'
-import { HoveredLink, Menu, MenuItem, ProductItem } from '@/components/ui/menu'
+import {
+  HoveredLink,
+  Menu,
+  MenuItem,
+  NoteItem,
+  ProductItem,
+} from '@/components/ui/menu'
 import { useTranslations } from 'next-intl'
+import { notesData } from '@/data/nav-bar-notes'
+import { useLocale } from 'use-intl'
 
 interface NavbarProps {
   className?: string
@@ -10,8 +18,10 @@ interface NavbarProps {
 
 export function Navbar({ className }: NavbarProps) {
   const t = useTranslations('header')
-
+  const local = useLocale() as ILocale
   const [active, setActive] = useState<string | null>(null)
+
+  const notes = notesData[local]
 
   // TODO: Add user, posts data, from server
   return (
@@ -33,21 +43,29 @@ export function Navbar({ className }: NavbarProps) {
           item="Blog"
           link="/blog"
         >
-          <div className="grid grid-cols-2 gap-10 p-4 text-sm">
-            <ProductItem
-              title={t('practice')}
-              href="/blog/practice-key-achieving-success"
-              src="/header/modern.webp"
-              description={t('practice_the_key_factor_in_achieving_success')}
-            />
-            <ProductItem
-              title={t('modern_job_search')}
-              href="/blog/modern-problems-job-search"
-              src="/header/practice.webp"
-              description={t(
-                'modern_job_search_challenges_in_IT_is_there_light_at_the_end_of_the_tunnel',
-              )}
-            />
+          <div className="grid grid-cols-[auto_1fr_auto] gap-10 p-4 text-sm">
+            <div className="flex flex-col gap-3">
+              <ProductItem
+                title={t('practice')}
+                href="/blog/practice-key-achieving-success"
+                src="/header/modern.webp"
+                description={t('practice_the_key_factor_in_achieving_success')}
+              />
+              <ProductItem
+                title={t('modern_job_search')}
+                href="/blog/modern-problems-job-search"
+                src="/header/practice.webp"
+                description={t(
+                  'modern_job_search_challenges_in_IT_is_there_light_at_the_end_of_the_tunnel',
+                )}
+              />
+            </div>
+            <div className="h-full w-[1px] bg-gray-600/20 dark:bg-gray-600/50" />
+            <div className="flex flex-col gap-3">
+              {notes.map((note, index) => (
+                <NoteItem key={index} {...note} />
+              ))}
+            </div>
           </div>
         </MenuItem>
         <MenuItem
