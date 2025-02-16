@@ -1,6 +1,9 @@
 {
   "header": {
     "name": "Oleh Tkach",
+    "home": "홈",
+    "blog": "블로그",
+    "mentoring": "멘토링",
     "login": "로그인",
     "switch-dark": "다크 테마로 전환",
     "switch-light": "라이트 테마로 전환",

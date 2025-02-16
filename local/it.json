@@ -1,6 +1,9 @@
 {
   "header": {
     "name": "Oleh Tkach",
+    "home": "Home",
+    "blog": "Blog",
+    "mentoring": "Mentoring",
     "login": "Accedi",
     "switch-dark": "Passa al tema scuro",
     "switch-light": "Passa al tema chiaro",

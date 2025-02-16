@@ -2,6 +2,9 @@
   "header": {
     "name": "Oleh Tkach",
     "login": "Logga in",
+    "home": "Hem",
+    "blog": "Blogg",
+    "mentoring": "Mentorskap",
     "switch-dark": "Byt till mörkt tema",
     "switch-light": "Byt till ljust tema",
     "switch-local": "Öppna språkväxlingsmodal",

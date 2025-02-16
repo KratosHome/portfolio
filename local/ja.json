@@ -1,6 +1,9 @@
 {
   "header": {
     "name": "Oleh Tkach",
+    "home": "ホーム",
+    "blog": "ブログ",
+    "mentoring": "メンタリング",
     "login": "ログイン",
     "switch-dark": "ダークテーマに切り替え",
     "switch-light": "ライトテーマに切り替え",

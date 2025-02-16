@@ -27,7 +27,12 @@ export function Navbar({ className }: NavbarProps) {
   return (
     <div className={cn('z-50 mx-auto max-w-2xl', className)}>
       <Menu setActive={setActive}>
-        <MenuItem setActive={setActive} active={active} item="Home" link="/">
+        <MenuItem
+          setActive={setActive}
+          active={active}
+          item={t('home')}
+          link="/"
+        >
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="#services">{t('services')}</HoveredLink>
             <HoveredLink href="#projects">{t('projects')}</HoveredLink>
@@ -40,7 +45,7 @@ export function Navbar({ className }: NavbarProps) {
         <MenuItem
           setActive={setActive}
           active={active}
-          item="Blog"
+          item={t('blog')}
           link="/blog"
         >
           <div className="grid grid-cols-[auto_1fr_auto] gap-10 p-4 text-sm">
@@ -71,7 +76,7 @@ export function Navbar({ className }: NavbarProps) {
         <MenuItem
           setActive={setActive}
           active={active}
-          item="Mentoring"
+          item={t('mentoring')}
           link="mentoring/projects"
         >
           <div className="grid grid-cols-2 gap-10 p-4 text-sm">

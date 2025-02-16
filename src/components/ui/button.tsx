@@ -1,8 +1,14 @@
+'use client'
 import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
+import arrowRightBlack from '@/assets/icons/arrow-right-black.svg'
+import arrowRightWhite from '@/assets/icons/arrow-right-white.svg'
 
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
@@ -46,6 +52,13 @@ export interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button'
+    const { theme } = useTheme()
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+      setMounted(true)
+    }, [])
+
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
@@ -56,6 +69,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           <>
             <span className="text-center duration-500 group-hover:scale-[1.1]">
               {props.children}
+              <div className="relative flex w-full items-center justify-center">
+                {mounted && (
+                  <Image
+                    className="max-w-[120px]"
+                    src={theme === 'dark' ? arrowRightBlack : arrowRightWhite}
+                    alt={arrowRightBlack}
+                  />
+                )}
+              </div>
             </span>
           </>
         ) : (

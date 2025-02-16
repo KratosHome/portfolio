@@ -1,6 +1,9 @@
 {
   "header": {
     "name": "Oleh Tkach",
+    "home": "घर",
+    "blog": "ब्लॉग",
+    "mentoring": "मेंटरिंग",
     "login": "लॉगिन",
     "switch-dark": "डार्क थीम पर स्विच करें",
     "switch-light": "लाइट थीम पर स्विच करें",

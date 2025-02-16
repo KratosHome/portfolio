@@ -2,6 +2,9 @@
   "header": {
     "name": "Oleh Tkach",
     "login": "登录",
+    "home": "首页",
+    "blog": "博客",
+    "mentoring": "指导",
     "switch-dark": "切换到暗色主题",
     "switch-light": "切换到亮色主题",
     "switch-local": "打开语言切换模式",
