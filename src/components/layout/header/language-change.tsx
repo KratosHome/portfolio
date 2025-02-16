@@ -46,7 +46,7 @@ export default function LanguageChange({ isMobile }: LanguageChangeProps) {
   if (isMobile) {
     return (
       <Dialog>
-        <DialogTrigger className="flex items-center gap-2 rounded-[35px] border-b border-zinc-600 bg-transparent px-[12px] py-[8px] text-[16px] uppercase backdrop-blur-[0.5px]">
+        <DialogTrigger className="flex items-center gap-2 rounded-[35px] border-b border-zinc-600 bg-transparent px-[12px] py-[8px] text-[16px] uppercase outline-none backdrop-blur-[0.5px]">
           <span className="text-[20px]">{locale}</span>
           <Image
             src={currentSrc}
@@ -92,7 +92,7 @@ export default function LanguageChange({ isMobile }: LanguageChangeProps) {
   return (
     <div className="group flex gap-2 text-lg">
       <DropdownMenu>
-        <DropdownMenuTrigger className="relative flex items-center gap-2 rounded-[35px] border-b border-zinc-600 bg-transparent px-[15px] py-[10px] text-[20px] uppercase backdrop-blur-[0.5px]">
+        <DropdownMenuTrigger className="relative flex items-center gap-2 rounded-[35px] border-b border-zinc-600 bg-transparent px-[15px] py-[10px] text-[20px] uppercase outline-none backdrop-blur-[0.5px]">
           <span className="block text-[20px] duration-300 group-hover:scale-105">
             {locale}
           </span>

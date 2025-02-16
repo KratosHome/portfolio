@@ -21,16 +21,16 @@ export const MobileMenu = () => {
 
   const containerClasses = `tham tham-e-squeeze tham-w-12  ${opened ? 'tham-active' : ''}`
 
-  const overlayClasses = `fixed inset-0  bg-gray-500 bg-opacity-0 z-10 transition-opacity top-[80px] duration-500 ease-in ${
+  const overlayClasses = `fixed inset-0  bg-gray-500 bg-opacity-0 z-10 transition-opacity top-[80px] duration-300 ease-in ${
     opened ? 'opacity-100' : 'opacity-0 pointer-events-none'
   }`
 
-  const menuClasses = `p-[12px] z-20 w-[240px] h-max border-stone-500/30 absolute -top-[20px] rounded-lg border bg-[linear-gradient(127deg,_rgba(11,_102,_245,_0.30)_49.23%,_rgba(78,_128,_206,_0.15)_83.27%,_rgba(255,_255,_255,_0.00)_102.62%)] backdrop-blur-[12.5px] transition-all duration-500 ease-in ${
-    opened ? 'right-5' : 'right-[-100vw]'
+  const menuClasses = `p-[12px] z-20 w-[240px] h-max border-stone-500/30 absolute -top-[20px] rounded-lg border bg-[linear-gradient(127deg,_rgba(11,_102,_245,_0.30)_49.23%,_rgba(78,_128,_206,_0.15)_83.27%,_rgba(255,_255,_255,_0.00)_102.62%)] backdrop-blur-[12.5px] transition-all duration-300 ease-in ${
+    opened ? 'right-5' : 'right-[-50vw]'
   }`
 
   return (
-    <div className="z-50 block lg:hidden">
+    <div className="z-50 block md:hidden">
       <div className={containerClasses} onClick={() => setOpened(!opened)}>
         <div className="tham-box">
           <div className="tham-inner bg-black dark:bg-white" />

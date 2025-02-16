@@ -23,7 +23,7 @@ const Header: FC<IMenuProps> = ({ logo }) => {
           <div className="relative mb-[10px] lg:max-w-[90%]">
             <div className="flex w-full items-center justify-between">
               {logo}
-              <nav className="hidden text-[20px] lg:block">
+              <nav className="hidden text-[20px] md:block">
                 <ul className="flex items-center gap-[32px]">
                   <Navbar />
                   <li className="group">
@@ -38,7 +38,7 @@ const Header: FC<IMenuProps> = ({ logo }) => {
                   </li>
                 </ul>
               </nav>
-              <div className="hidden items-center gap-[15px] lg:flex">
+              <div className="hidden items-center gap-[15px] md:flex">
                 <ThemeChange />
                 <LanguageChange />
               </div>
@@ -50,7 +50,7 @@ const Header: FC<IMenuProps> = ({ logo }) => {
           <div className="animate-grow inabsolute block h-[1px] overflow-x-hidden bg-[#050505] dark:bg-[#FAFAFA]"></div>
         </div>
       </header>
-      <div className="absolute mt-[15px] flex w-full justify-end pr-[30px] lg:hidden">
+      <div className="absolute mt-[15px] flex w-full justify-end pr-[30px] md:hidden">
         <ThemeChange />
       </div>
       <div className="relative mx-auto max-w-[1842px]">

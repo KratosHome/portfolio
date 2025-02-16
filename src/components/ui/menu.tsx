@@ -3,6 +3,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
+import { cn } from '@/lib/utils'
 
 const transition = {
   type: 'spring',
@@ -52,7 +53,7 @@ export const MenuItem = ({
           transition={transition}
         >
           {active === item && (
-            <div className="absolute left-1/2 top-[calc(100%_-_0.5rem)] z-50 -translate-x-1/2 transform pt-4">
+            <div className="absolute left-1/2 top-[calc(100%_-_0.5rem)] z-50 -translate-x-1/2 transform pt-7">
               <motion.div
                 transition={transition}
                 layoutId="active"
@@ -98,21 +99,30 @@ export const ProductItem = ({
   href: string
   src: string
 }) => {
+  const maxLength = 90
+  const shortText =
+    description.length > maxLength
+      ? description.slice(0, maxLength) + '...'
+      : description
+
   return (
-    <Link href={href} className="flex space-x-2">
+    <Link
+      href={href}
+      className="group flex space-x-2 transition-all duration-300 ease-out hover:scale-105"
+    >
       <Image
         src={src}
         width={140}
         height={70}
         alt={title}
-        className="flex-shrink-0 rounded-md shadow-2xl"
+        className="group-hover:shadow-3xl size-[120px] flex-shrink-0 rounded-md object-cover shadow-lg transition-all duration-300 ease-out group-hover:size-[120px] lg:size-[140px] lg:group-hover:size-[140px]"
       />
-      <div>
-        <h4 className="mb-1 text-xl font-bold text-black dark:text-white">
+      <div className="transition-all duration-300 ease-out group-hover:translate-y-[-2px]">
+        <h4 className="mb-1 text-xl font-bold text-black group-hover:text-primary dark:text-white">
           {title}
         </h4>
-        <p className="max-w-[10rem] text-sm text-neutral-700 dark:text-neutral-300">
-          {description}
+        <p className="max-w-[10rem] text-sm text-neutral-700 transition-opacity duration-300 ease-out group-hover:opacity-75 dark:text-neutral-300">
+          {shortText}
         </p>
       </div>
     </Link>
@@ -121,11 +131,18 @@ export const ProductItem = ({
 
 type HoveredLinkProps = React.ComponentPropsWithoutRef<typeof Link>
 
-export const HoveredLink = ({ children, ...rest }: HoveredLinkProps) => {
+export const HoveredLink = ({
+  children,
+  className,
+  ...rest
+}: HoveredLinkProps) => {
   return (
     <Link
       {...rest}
-      className="text-neutral-700 hover:text-black dark:text-neutral-200"
+      className={cn(
+        className,
+        'text-neutral-700 transition-all duration-300 ease-out hover:scale-105 hover:text-neutral-900 dark:text-neutral-200 hover:dark:text-neutral-400',
+      )}
     >
       {children}
     </Link>
