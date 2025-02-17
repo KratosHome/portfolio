@@ -1,6 +1,5 @@
 'use client'
 import * as React from 'react'
-import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
 import arrowRightBlack from '@/assets/icons/arrow-right-black.svg'
 import arrowRightWhite from '@/assets/icons/arrow-right-white.svg'
@@ -44,49 +43,49 @@ const buttonVariants = cva(
 )
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends React.ButtonHTMLAttributes<HTMLButtonElement | HTMLDivElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'button'
-    const { theme } = useTheme()
-    const [mounted, setMounted] = useState(false)
+const Button = React.forwardRef<
+  HTMLButtonElement | HTMLDivElement,
+  ButtonProps
+>(({ className, variant, size, asChild = false, ...props }, ref) => {
+  const Comp = asChild ? 'div' : 'button'
+  const { theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-    useEffect(() => {
-      setMounted(true)
-    }, [])
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
-    return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      >
-        {variant === 'circle' ? (
-          <>
-            <span className="text-center duration-500 group-hover:scale-[1.1]">
-              {props.children}
-              <div className="relative flex w-full items-center justify-center">
-                {mounted && (
-                  <Image
-                    className="max-w-[120px]"
-                    src={theme === 'dark' ? arrowRightBlack : arrowRightWhite}
-                    alt={arrowRightBlack}
-                  />
-                )}
-              </div>
-            </span>
-          </>
-        ) : (
-          props.children
-        )}
-      </Comp>
-    )
-  },
-)
+  return (
+    <Comp
+      className={cn(buttonVariants({ variant, size, className }))}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ref={ref as any}
+      {...props}
+    >
+      {variant === 'circle' ? (
+        <div className="relative -mt-2 text-center duration-300 group-hover:scale-[1.1]">
+          {props.children}
+          {mounted && (
+            <Image
+              fill
+              className="mt-5"
+              src={theme === 'dark' ? arrowRightBlack : arrowRightWhite}
+              alt="arrow icon"
+            />
+          )}
+        </div>
+      ) : (
+        props.children
+      )}
+    </Comp>
+  )
+})
+
 Button.displayName = 'Button'
 
 export { Button, buttonVariants }

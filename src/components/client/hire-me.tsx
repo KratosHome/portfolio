@@ -7,7 +7,6 @@ import { messageMe } from '@/server/telegram/message-me.server'
 import { useLocale } from 'use-intl'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Modal } from '@/components/ui/modal/modal'
 import { useToast } from '@/hooks/use-toast'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -20,6 +19,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 
 interface HireMeProps {
   title: string
@@ -94,27 +99,26 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
         })
       }
     }
-    resetForm()
     setLoading(false)
   }
 
   return (
     <>
       {loading && <>Loader</>}
-      <div onClick={() => setOpen(true)} className="cursor-pointer">
-        <Button variant="circle" size="circle">
-          {title}
-        </Button>
-      </div>
-      <Modal
-        isOpen={open}
-        onClose={() => {
-          setOpen(false)
+      <Dialog
+        open={open}
+        onOpenChange={(isOpen) => {
+          setOpen(isOpen)
           resetForm()
         }}
-        className="flex flex-col justify-end rounded-lg border-b border-black bg-[127deg] bg-gradient-to-r from-[rgba(11,102,245,0.30)] via-[rgba(78,128,206,0.15)] to-transparent px-3 backdrop-blur-[12.5px] lg:px-8"
       >
-        <div className="w-[300px] lg:w-[400px]">
+        <DialogTrigger>
+          <Button variant="circle" size="circle" asChild>
+            {title}
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="flex max-h-[90vh] w-full flex-col overflow-y-auto rounded-lg border-b border-black bg-[#709CF2] px-3 backdrop-blur-[12.5px] dark:bg-[127deg] dark:bg-gradient-to-r dark:from-[rgba(11,102,245,0.30)] dark:via-[rgba(78,128,206,0.15)] dark:to-transparent lg:px-8">
+          <DialogTitle className="hidden">Are you absolutely sure?</DialogTitle>
           <h2 className="text-center text-[40px] font-bold uppercase text-[#0B66F5]">
             {modalTitle}
           </h2>
@@ -126,11 +130,15 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('name')}</FormLabel>
                       <FormControl>
-                        <Input {...field} variant="secondary" type="text" />
+                        <Input
+                          {...field}
+                          placeholder={t('name')}
+                          variant="secondary"
+                          type="text"
+                        />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="absolute -bottom-3" />
                     </FormItem>
                   )}
                 />
@@ -140,11 +148,15 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('email')}</FormLabel>
                       <FormControl>
-                        <Input {...field} variant="secondary" type="text" />
+                        <Input
+                          {...field}
+                          placeholder={t('email')}
+                          variant="secondary"
+                          type="text"
+                        />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="absolute -bottom-3" />
                     </FormItem>
                   )}
                 />
@@ -154,11 +166,11 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('phone')}</FormLabel>
+                      <FormLabel className="text-white">{t('phone')}</FormLabel>
                       <FormControl>
                         <Input {...field} variant="secondary" type="phone" />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="absolute -bottom-3" />
                     </FormItem>
                   )}
                 />
@@ -168,14 +180,14 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('message')}</FormLabel>
                       <FormControl>
                         <textarea
+                          placeholder={t('message')}
                           className="mt-[12px] h-[125px] w-full resize-none rounded-[8px] border-[1px] border-white bg-transparent px-[8px] py-[14px] text-[16px] text-[white] placeholder-[#FAFAFA]"
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="absolute -bottom-3" />
                     </FormItem>
                   )}
                 />
@@ -201,8 +213,8 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
               </div>
             </form>
           </Form>
-        </div>
-      </Modal>
+        </DialogContent>
+      </Dialog>
     </>
   )
 }
