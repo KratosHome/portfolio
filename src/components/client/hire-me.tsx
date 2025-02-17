@@ -1,4 +1,5 @@
 'use client'
+
 import { FC, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -11,6 +12,7 @@ import { useToast } from '@/hooks/use-toast'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import MaskedInput from 'react-text-mask'
 import {
   Form,
   FormControl,
@@ -37,8 +39,7 @@ const formSchema = z.object({
   phone: z
     .string()
     .min(10, 'Мінімум 10 символів')
-    .max(15, 'Максимум 15 символів')
-    .regex(/^[0-9+]+$/, 'Можна вводити тільки цифри'),
+    .max(15, 'Максимум 15 символів'),
   message: z.string().optional(),
 })
 
@@ -63,7 +64,7 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
     defaultValues: {
       name: '',
       email: '',
-      phone: '',
+      phone: '+380 ', // змінено на +380
       message: '',
     },
   })
@@ -166,11 +167,37 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white">{t('phone')}</FormLabel>
                       <FormControl>
-                        <Input {...field} variant="secondary" type="phone" />
+                        <MaskedInput
+                          {...field}
+                          mask={[
+                            '+',
+                            '3',
+                            '8',
+                            '0',
+                            ' ',
+                            '(',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            ')',
+                            ' ',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            '-',
+                            /\d/,
+                            /\d/,
+                            '-',
+                            /\d/,
+                            /\d/,
+                          ]}
+                          placeholder="+380 (XXX) XXX-XX-XX"
+                          showMask
+                          className="w-full rounded-md border border-white bg-transparent px-3 py-2 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                        />
                       </FormControl>
-                      <FormMessage className="absolute -bottom-3" />
+                      <FormMessage className="absolute -bottom-5" />
                     </FormItem>
                   )}
                 />
