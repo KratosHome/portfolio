@@ -1,5 +1,4 @@
 'use client'
-
 import { FC, useRef, useState, Fragment } from 'react'
 import { useTranslations } from 'next-intl'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -14,21 +13,19 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import MaskedInput from 'react-text-mask'
 import { Dialog, Transition } from '@headlessui/react'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form'
+import { Loader } from '@/components/ui/loader/loader'
 
 interface HireMeProps {
   title: string
   modalTitle: string
 }
-
-const formSchema = z.object({
-  name: z.string().min(2, 'Мінімум 2 символи').max(50, 'Максимум 50 символів'),
-  email: z.string().email('Невірний формат email'),
-  phone: z
-    .string()
-    .min(10, 'Мінімум 10 символів')
-    .max(15, 'Максимум 15 символів'),
-  message: z.string().optional(),
-})
 
 export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
   const locale = useLocale()
@@ -40,11 +37,20 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [isVerified, setIsVerified] = useState<boolean>(false)
 
-  const resetForm = () => {
-    form.reset()
-    setIsVerified(false)
-    recaptchaRef.current?.reset()
-  }
+  const formSchema = z.object({
+    name: z
+      .string()
+      .min(2, `${t('Minimum number of characters')} 2`)
+      .max(50, `${t('Maximum number of characters')} 50 `),
+    email: z.string().email('Невірний формат email'),
+    phone: z
+      .string()
+      .regex(
+        /^\+380 \(\d{3}\) \d{3}-\d{2}-\d{2}$/,
+        `${t('This field is required')}`,
+      ),
+    message: z.string().optional(),
+  })
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -55,6 +61,12 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
       message: '',
     },
   })
+
+  const resetForm = () => {
+    form.reset()
+    setIsVerified(false)
+    recaptchaRef.current?.reset()
+  }
 
   async function handleCaptchaSubmission(token: string | null) {
     await verifyCaptcha(token)
@@ -92,16 +104,18 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
 
   return (
     <>
-      {loading && <>Loader</>}
+      {loading && <Loader />}
       <Button variant="circle" size="circle" onClick={() => setOpen(true)}>
         {title}
       </Button>
-
       <Transition appear show={open} as={Fragment}>
         <Dialog
           as="div"
           className="relative z-50"
-          onClose={() => setOpen(false)}
+          onClose={() => {
+            setOpen(false)
+            resetForm()
+          }}
         >
           <Transition.Child
             as={Fragment}
@@ -125,74 +139,116 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
               leaveFrom="opacity-100 scale-100 rotate-0"
               leaveTo="opacity-0 scale-50 rotate-12"
             >
-              <Dialog.Panel className="max-h-[90svh] w-full max-w-lg transform overflow-auto rounded-lg border border-b border-black bg-[#709CF2] px-3 py-8 shadow-2xl backdrop-blur-[12.5px] dark:bg-transparent dark:bg-gradient-to-r dark:from-[rgba(11,102,245,0.30)] dark:via-[rgba(78,128,206,0.15)] dark:to-transparent lg:px-8">
+              <Dialog.Panel className="max-h-[90svh] w-full max-w-lg transform overflow-auto rounded-lg border border-black bg-[#709CF2] px-3 py-8 shadow-2xl backdrop-blur-[12.5px] dark:bg-transparent dark:bg-gradient-to-r dark:from-[rgba(11,102,245,0.30)] dark:via-[rgba(78,128,206,0.15)] dark:to-transparent lg:px-8">
                 <Dialog.Title className="text-center text-[40px] font-bold uppercase text-[#0B66F5]">
                   {modalTitle}
                 </Dialog.Title>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-4"
-                >
-                  <Input
-                    {...form.register('name')}
-                    variant="secondary"
-                    placeholder={t('name')}
-                  />
-                  <Input
-                    {...form.register('email')}
-                    variant="secondary"
-                    placeholder={t('email')}
-                  />
-                  <MaskedInput
-                    {...form.register('phone')}
-                    mask={[
-                      '+',
-                      '3',
-                      '8',
-                      '0',
-                      ' ',
-                      '(',
-                      /\d/,
-                      /\d/,
-                      /\d/,
-                      ')',
-                      ' ',
-                      /\d/,
-                      /\d/,
-                      /\d/,
-                      '-',
-                      /\d/,
-                      /\d/,
-                      '-',
-                      /\d/,
-                      /\d/,
-                    ]}
-                    placeholder="+380 (XXX) XXX-XX-XX"
-                    showMask
-                    className="w-full rounded-md border border-white bg-transparent px-3 py-2 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                  />
-                  <textarea
-                    {...form.register('message')}
-                    placeholder={t('message')}
-                    className="h-28 w-full resize-none rounded-md border border-white bg-transparent p-3 text-white"
-                  />
-
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-                    onChange={handleCaptchaSubmission}
-                    hl={locale}
-                  />
-
-                  <Button
-                    type="submit"
-                    variant="circle"
-                    disabled={!isVerified}
-                    className="w-full"
-                  >
-                    {t('send')}
-                  </Button>
-                </form>
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)}>
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder={t('name')}
+                              variant="secondary"
+                            />
+                          </FormControl>
+                          <FormMessage className="absolute -bottom-3" />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder={t('email')}
+                              variant="secondary"
+                            />
+                          </FormControl>
+                          <FormMessage className="absolute -bottom-3" />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <MaskedInput
+                              {...field}
+                              mask={[
+                                '+',
+                                '3',
+                                '8',
+                                '0',
+                                ' ',
+                                '(',
+                                /\d/,
+                                /\d/,
+                                /\d/,
+                                ')',
+                                ' ',
+                                /\d/,
+                                /\d/,
+                                /\d/,
+                                '-',
+                                /\d/,
+                                /\d/,
+                                '-',
+                                /\d/,
+                                /\d/,
+                              ]}
+                              placeholder="+380 (XXX) XXX-XX-XX"
+                              showMask
+                              className="!mb-5 mt-[12px] h-[48px] w-full rounded-[8px] border-[1px] border-black bg-transparent px-[8px] py-[14px] text-[20px] text-white placeholder-black focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-white dark:text-white dark:placeholder-[#FAFAFA] lg:text-[16px]"
+                            />
+                          </FormControl>
+                          <FormMessage className="absolute bottom-0" />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <textarea
+                              {...field}
+                              placeholder={t('message')}
+                              className="h-28 w-full resize-none rounded-md border border-white bg-transparent p-3 text-white"
+                            />
+                          </FormControl>
+                          <FormMessage className="absolute -bottom-3" />
+                        </FormItem>
+                      )}
+                    />
+                    <div className="flex w-full flex-col items-center justify-center gap-4">
+                      <ReCAPTCHA
+                        ref={recaptchaRef}
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                        onChange={handleCaptchaSubmission}
+                        hl={locale}
+                      />
+                      <Button
+                        type="submit"
+                        variant="circle"
+                        disabled={!isVerified}
+                      >
+                        {t('send')}
+                      </Button>
+                    </div>
+                  </form>
+                </Form>
               </Dialog.Panel>
             </Transition.Child>
           </div>
