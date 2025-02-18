@@ -57,6 +57,7 @@ export default async function LocaleLayout({
       <SpeedInsights />
       <GoogleTagManager />
       <body
+        // prettier-ignore
         className={`${sansation.variable} max-w-screen font-sansation relative overflow-x-hidden bg-white antialiased dark:bg-black`}
       >
         {children}
