@@ -235,10 +235,10 @@ const Hero = () => {
             </span>
           </h2>
         </div>
-        <div className="absolute -bottom-[700px] -right-[200px] z-[-1] h-[900px] w-[900px] rounded-full bg-gradient-to-r from-blue-300 to-blue-500 opacity-[0.18] blur-3xl" />
+        <div className="absolute -bottom-[700px] -right-[200px] z-[-1] h-[700px] w-[700px] rounded-full bg-gradient-to-r from-blue-300 to-blue-500 opacity-[0.18] blur-3xl lg:h-[900px] lg:w-[900px]" />
         <div className="absolute left-1/2 top-[180px] z-[-1] h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-300 to-blue-500 opacity-10 blur-3xl" />
-        <div className="absolute left-0 top-[180px] z-[-1] h-[800px] w-[800px] rounded-full bg-gradient-to-r from-blue-300 to-blue-500 opacity-10 blur-3xl" />
-        <div className="absolute -top-10 right-10 z-[-1] h-[600px] w-[600px] rounded-full bg-gradient-to-r from-blue-300 to-blue-500 opacity-10 blur-3xl" />
+        <div className="absolute left-0 top-[180px] z-[-1] hidden h-[800px] w-[800px] rounded-full bg-gradient-to-r from-blue-300 to-blue-500 opacity-10 blur-3xl lg:block" />
+        <div className="absolute -top-10 right-10 z-[-1] hidden h-[600px] w-[600px] rounded-full bg-gradient-to-r from-blue-300 to-blue-500 opacity-10 blur-3xl lg:block" />
         <div className="absolute -right-[75px] bottom-[190px] -z-20 h-[103px] w-[125px] rotate-[10deg] bg-contain opacity-[0.4] bg-ellipse-pattern" />
         <div className="animate-scale-in-out bg-group-pattern-light absolute -bottom-[20px] left-[75vw] -z-20 size-[200px] -translate-x-1/2 dark:opacity-[0.1] dark:bg-group-pattern xl:-bottom-[220px] xl:left-[400px] xl:size-[300px]" />
       </div>
