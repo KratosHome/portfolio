@@ -24,6 +24,7 @@ const Hero = () => {
   const hireMeRef = useRef<HTMLDivElement>(null)
   const planetRef = useRef<HTMLDivElement>(null)
   const bgСircleTextRef = useRef<HTMLDivElement>(null)
+  const socialIconsRef = useRef<HTMLDivElement>(null)
 
   const startDate = new Date('2021-10-01')
 
@@ -111,7 +112,23 @@ const Hero = () => {
         },
       )
     }
+
+    if (socialIconsRef.current) {
+      gsap.fromTo(
+        socialIconsRef.current.children,
+        { opacity: 0, y: 50, scale: 0.5 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.5,
+          ease: 'power2.out',
+          stagger: 0.3,
+        },
+      )
+    }
   })
+
   return (
     <section className="relative min-h-[1700px] overflow-x-hidden lg:overflow-visible">
       <div className="relative mx-auto max-w-[1442px] px-[24px]">
@@ -151,12 +168,16 @@ const Hero = () => {
         </div>
         <div className="relative mt-[52px] flex flex-col-reverse items-end justify-between lg:flex-row">
           <div className="flex justify-between lg:w-1/2">
-            <div className="flex min-w-[160px] flex-row justify-between border-t-2 border-black py-[5px] pr-[16px] dark:border-white lg:min-w-[0px] lg:flex-col lg:border-r-[1px] lg:border-t-0">
+            <div
+              ref={socialIconsRef}
+              className="flex min-w-[160px] flex-row justify-between border-t-2 border-black py-[5px] pr-[16px] dark:border-white lg:min-w-[0px] lg:flex-col lg:border-r-[1px] lg:border-t-0"
+            >
               <a
                 href="https://github.com/KratosHome"
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 aria-label="GitHub"
+                className="scale-0 opacity-0"
               >
                 <Image
                   className="!fill-amber-700 !stroke-red-500 transition-transform duration-300 hover:scale-[1.2]"
@@ -167,7 +188,7 @@ const Hero = () => {
                 />
               </a>
               <a
-                className="block lg:my-[16px]"
+                className="block scale-0 opacity-0 lg:my-[16px]"
                 href="https://www.linkedin.com/in/olegtkach101/"
                 target="_blank"
                 rel="noopener noreferrer nofollow"
@@ -186,6 +207,7 @@ const Hero = () => {
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 aria-label="Telegram"
+                className="scale-0 opacity-0"
               >
                 <Image
                   className="transition-transform duration-300 hover:scale-[1.2]"
@@ -213,12 +235,12 @@ const Hero = () => {
             </span>
           </h2>
         </div>
-        <div className="animate-scale-in-out bg-group-pattern-light absolute -bottom-[20px] left-[75vw] -z-20 size-[200px] -translate-x-1/2 dark:opacity-[0.1] dark:bg-group-pattern xl:-bottom-[220px] xl:left-[400px] xl:size-[300px]" />
+        <div className="absolute -bottom-[700px] -right-[200px] z-[-1] h-[900px] w-[900px] rounded-full bg-gradient-to-r from-blue-300 to-blue-500 opacity-[0.18] blur-3xl" />
+        <div className="absolute left-1/2 top-[180px] z-[-1] h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-300 to-blue-500 opacity-10 blur-3xl" />
+        <div className="absolute left-0 top-[180px] z-[-1] h-[800px] w-[800px] rounded-full bg-gradient-to-r from-blue-300 to-blue-500 opacity-10 blur-3xl" />
+        <div className="absolute -top-10 right-10 z-[-1] h-[600px] w-[600px] rounded-full bg-gradient-to-r from-blue-300 to-blue-500 opacity-10 blur-3xl" />
         <div className="absolute -right-[75px] bottom-[190px] -z-20 h-[103px] w-[125px] rotate-[10deg] bg-contain opacity-[0.4] bg-ellipse-pattern" />
-        <div className="absolute -top-[600px] left-0 -z-20 size-[1900px] transform bg-hero-pattern lg:hidden dark:lg:block" />
-        <div className="absolute -right-[350px] -top-[300px] -z-20 size-[1900px] bg-hero-pattern dark:block lg:right-[0px] lg:hidden" />
-        <div className="absolute -left-[950px] -top-[300px] -z-20 hidden size-[1900px] bg-hero-pattern lg:right-[0px] lg:block" />
-        <div className="absolute -left-[100px] top-[100px] -z-20 hidden h-[1900px] w-[1900px] transform bg-hero-pattern lg:block" />
+        <div className="animate-scale-in-out bg-group-pattern-light absolute -bottom-[20px] left-[75vw] -z-20 size-[200px] -translate-x-1/2 dark:opacity-[0.1] dark:bg-group-pattern xl:-bottom-[220px] xl:left-[400px] xl:size-[300px]" />
       </div>
       <div className="mt-[124px] h-[1px] w-full bg-stone-500/0" />
       <div className="relative mx-auto max-w-[1442px]">
