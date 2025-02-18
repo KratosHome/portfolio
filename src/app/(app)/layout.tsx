@@ -12,32 +12,32 @@ export const dynamic = 'force-dynamic'
 const sansation = localFont({
   src: [
     {
-      path: '../fonts/Sansation_Light.ttf',
+      path: '../../assets/fonts/Sansation_Light.ttf',
       weight: '300',
       style: 'normal',
     },
     {
-      path: '../fonts/Sansation_Light_Italic.ttf',
+      path: '../../assets/fonts/Sansation_Light_Italic.ttf',
       weight: '300',
       style: 'italic',
     },
     {
-      path: '../fonts/Sansation_Regular.ttf',
+      path: '../../assets/fonts/Sansation_Regular.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../fonts/Sansation_Italic.ttf',
+      path: '../../assets/fonts/Sansation_Italic.ttf',
       weight: '400',
       style: 'italic',
     },
     {
-      path: '../fonts/Sansation_Bold.ttf',
+      path: '../../assets/fonts/Sansation_Bold.ttf',
       weight: '700',
       style: 'normal',
     },
     {
-      path: '../fonts/Sansation_Bold_Italic.ttf',
+      path: '../../assets/fonts/Sansation_Bold_Italic.ttf',
       weight: '700',
       style: 'italic',
     },
