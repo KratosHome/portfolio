@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useRef, useState } from 'react'
+import { FC, useRef, useState, Fragment } from 'react'
 import { useTranslations } from 'next-intl'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { verifyCaptcha } from '@/server/verifyCaptcha'
@@ -13,20 +13,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import MaskedInput from 'react-text-mask'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
+import { Dialog, Transition } from '@headlessui/react'
 
 interface HireMeProps {
   title: string
@@ -64,7 +51,7 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
     defaultValues: {
       name: '',
       email: '',
-      phone: '+380 ', // змінено на +380
+      phone: '+380 ',
       message: '',
     },
   })
@@ -91,7 +78,7 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
       const result = await messageMe(sendData)
       if (result?.success) {
         toast({ title: t('The message has been sent') })
-        form.reset()
+        resetForm()
         setOpen(false)
       } else {
         toast({
@@ -106,142 +93,111 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
   return (
     <>
       {loading && <>Loader</>}
-      <Dialog
-        open={open}
-        onOpenChange={(isOpen) => {
-          setOpen(isOpen)
-          resetForm()
-        }}
-      >
-        <DialogTrigger>
-          <Button variant="circle" size="circle" asChild>
-            {title}
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="flex max-h-[90vh] w-full flex-col overflow-y-auto rounded-lg border-b border-black bg-[#709CF2] px-3 backdrop-blur-[12.5px] dark:bg-[127deg] dark:bg-gradient-to-r dark:from-[rgba(11,102,245,0.30)] dark:via-[rgba(78,128,206,0.15)] dark:to-transparent lg:px-8">
-          <DialogTitle className="hidden">Are you absolutely sure?</DialogTitle>
-          <h2 className="text-center text-[40px] font-bold uppercase text-[#0B66F5]">
-            {modalTitle}
-          </h2>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-              <div className="space-y-3">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          placeholder={t('name')}
-                          variant="secondary"
-                          type="text"
-                        />
-                      </FormControl>
-                      <FormMessage className="absolute -bottom-3" />
-                    </FormItem>
-                  )}
-                />
+      <Button variant="circle" size="circle" onClick={() => setOpen(true)}>
+        {title}
+      </Button>
 
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          placeholder={t('email')}
-                          variant="secondary"
-                          type="text"
-                        />
-                      </FormControl>
-                      <FormMessage className="absolute -bottom-3" />
-                    </FormItem>
-                  )}
-                />
+      <Transition appear show={open} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-50"
+          onClose={() => setOpen(false)}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="transition-transform duration-100 ease-out"
+            enterFrom="opacity-0 scale-75 translate-y-10"
+            enterTo="opacity-100 scale-100 translate-y-0"
+            leave="transition-transform duration-100 ease-in"
+            leaveFrom="opacity-100 scale-100 translate-y-0"
+            leaveTo="opacity-0 scale-75 translate-y-10"
+          >
+            <div className="bg-black/2 fixed inset-0 bg-opacity-60 backdrop-blur-lg" />
+          </Transition.Child>
 
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <MaskedInput
-                          {...field}
-                          mask={[
-                            '+',
-                            '3',
-                            '8',
-                            '0',
-                            ' ',
-                            '(',
-                            /\d/,
-                            /\d/,
-                            /\d/,
-                            ')',
-                            ' ',
-                            /\d/,
-                            /\d/,
-                            /\d/,
-                            '-',
-                            /\d/,
-                            /\d/,
-                            '-',
-                            /\d/,
-                            /\d/,
-                          ]}
-                          placeholder="+380 (XXX) XXX-XX-XX"
-                          showMask
-                          className="w-full rounded-md border border-white bg-transparent px-3 py-2 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                        />
-                      </FormControl>
-                      <FormMessage className="absolute -bottom-5" />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <textarea
-                          placeholder={t('message')}
-                          className="mt-[12px] h-[125px] w-full resize-none rounded-[8px] border-[1px] border-white bg-transparent px-[8px] py-[14px] text-[16px] text-[white] placeholder-[#FAFAFA]"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="absolute -bottom-3" />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <div className="mt-3 flex flex-col items-center">
-                <ReCAPTCHA
-                  className="recaptcha"
-                  sitekey={`${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-                  ref={recaptchaRef}
-                  onChange={handleCaptchaSubmission}
-                  hl={locale}
-                />
-                <Button
-                  type="submit"
-                  variant="circle"
-                  size={'circle'}
-                  disabled={!isVerified}
-                  className="mt-3"
+          <div className="fixed inset-0 flex items-center justify-center p-6">
+            <Transition.Child
+              as={Fragment}
+              enter="transition-all duration-300 ease-out"
+              enterFrom="opacity-0 scale-50 rotate-12"
+              enterTo="opacity-100 scale-100 rotate-0"
+              leave="transition-all duration-100 ease-in"
+              leaveFrom="opacity-100 scale-100 rotate-0"
+              leaveTo="opacity-0 scale-50 rotate-12"
+            >
+              <Dialog.Panel className="max-h-[90svh] w-full max-w-lg transform overflow-auto rounded-lg border border-b border-black bg-[#709CF2] px-3 py-8 shadow-2xl backdrop-blur-[12.5px] dark:bg-transparent dark:bg-gradient-to-r dark:from-[rgba(11,102,245,0.30)] dark:via-[rgba(78,128,206,0.15)] dark:to-transparent lg:px-8">
+                <Dialog.Title className="text-center text-[40px] font-bold uppercase text-[#0B66F5]">
+                  {modalTitle}
+                </Dialog.Title>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-4"
                 >
-                  {t('send')}
-                </Button>
-              </div>
-            </form>
-          </Form>
-        </DialogContent>
-      </Dialog>
+                  <Input
+                    {...form.register('name')}
+                    variant="secondary"
+                    placeholder={t('name')}
+                  />
+                  <Input
+                    {...form.register('email')}
+                    variant="secondary"
+                    placeholder={t('email')}
+                  />
+                  <MaskedInput
+                    {...form.register('phone')}
+                    mask={[
+                      '+',
+                      '3',
+                      '8',
+                      '0',
+                      ' ',
+                      '(',
+                      /\d/,
+                      /\d/,
+                      /\d/,
+                      ')',
+                      ' ',
+                      /\d/,
+                      /\d/,
+                      /\d/,
+                      '-',
+                      /\d/,
+                      /\d/,
+                      '-',
+                      /\d/,
+                      /\d/,
+                    ]}
+                    placeholder="+380 (XXX) XXX-XX-XX"
+                    showMask
+                    className="w-full rounded-md border border-white bg-transparent px-3 py-2 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                  />
+                  <textarea
+                    {...form.register('message')}
+                    placeholder={t('message')}
+                    className="h-28 w-full resize-none rounded-md border border-white bg-transparent p-3 text-white"
+                  />
+
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                    onChange={handleCaptchaSubmission}
+                    hl={locale}
+                  />
+
+                  <Button
+                    type="submit"
+                    variant="circle"
+                    disabled={!isVerified}
+                    className="w-full"
+                  >
+                    {t('send')}
+                  </Button>
+                </form>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
     </>
   )
 }
