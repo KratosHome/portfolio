@@ -1,0 +1,73 @@
+.services-card {
+  background: var(--bg-services-card);
+  overflow: hidden;
+}
+
+.services-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-services-card-hover);
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  z-index: -1;
+}
+
+.services-card:hover {
+  border-radius: 12px;
+  background: none;
+  transition: opacity 0.4s ease-in-out;
+  border-right-color: rgba(255, 255, 255, 1);
+}
+
+.services-card:hover::before {
+  opacity: 1;
+}
+
+.wrapper-services-mob {
+  display: flex;
+  overflow-x: hidden;
+}
+
+
+.panel {
+  background: var(--bg-services-card);
+}
+
+root {
+  --servics-opacity: 0.5;
+  --servics-opacity-0: 0.5;
+  --servics-opacity-5: 0.8;
+  --servics-opacity-1: 0.5;
+}
+
+[class='dark'] {
+  --servics-opacity: 0.1;
+  --servics-opacity-0: 0.1;
+  --servics-opacity-5: 0.2;
+  --servics-opacity-1: 0.1;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: var(--servics-opacity-0)
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: var(--servics-opacity-5)
+  }
+  100% {
+    transform: scale(1);
+    opacity: var(--servics-opacity-1)
+  }
+}
+
+.animate-serv-pulse {
+  opacity: var(--servics-opacity);
+  rotate: -10deg;
+  animation: pulse 2s infinite;
+}

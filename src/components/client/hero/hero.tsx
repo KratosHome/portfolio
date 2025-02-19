@@ -210,7 +210,7 @@ const Hero = () => {
                 className="scale-0 opacity-0"
               >
                 <Image
-                  className="transition-transform duration-300 hover:scale-[1.2]"
+                  className="tvfsdfvdsf transition-transform duration-300 hover:scale-[1.2]"
                   src={theme === 'light' ? telegramLight : telegram}
                   alt="telegram"
                   width={40}
