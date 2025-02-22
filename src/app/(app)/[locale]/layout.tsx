@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import ScrollToTop from '@/components/features/scroll-to-top'
 import StarsCanvas from '@/components/ui/star-background/star-background'
+import Footer from '@/components/layout/footer/footer'
 
 export default async function LocaleLayout({
   children,
@@ -19,6 +20,7 @@ export default async function LocaleLayout({
           <ScrollToTop />
           <StarsCanvas />
           <main className="min-h-[90svh]">{children}</main>
+          <Footer />
         </NextIntlClientProvider>
       </ThemeProvider>
     </>

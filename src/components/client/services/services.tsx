@@ -84,8 +84,8 @@ const Services: FC<ServicesProps> = ({ services }) => {
         ease: 'power3.out',
         scrollTrigger: {
           trigger: titleRef.current,
-          start: 'top 30%',
-          end: 'top 5px',
+          start: 'top 55%',
+          end: 'top 55px',
           toggleActions: 'play reverse play reverse',
         },
       },
@@ -138,6 +138,7 @@ const Services: FC<ServicesProps> = ({ services }) => {
       })
     })
   })
+
   const handleMouseEnter = contextSafe((index: number) => {
     const serviceRef = serviceRefs.current[index]
     const icons = iconRefs.current[index]
