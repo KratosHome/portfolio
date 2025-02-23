@@ -43,13 +43,7 @@ const Footer = () => {
   const { theme } = useTheme()
   const locale = useLocale()
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    control,
-    formState: { errors },
-  } = useForm<FormData>()
+  const { handleSubmit, reset } = useForm<FormData>()
 
   const year = new Date().getFullYear()
 
