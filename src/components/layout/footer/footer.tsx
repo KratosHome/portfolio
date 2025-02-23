@@ -24,6 +24,7 @@ import { Loader } from '@/components/ui/loader/loader'
 import { useToast } from '@/hooks/use-toast'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { usePathname } from 'next/navigation'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -42,6 +43,7 @@ const Footer = () => {
   const t = useTranslations('footer')
   const { theme } = useTheme()
   const locale = useLocale()
+  const pathname = usePathname()
 
   const { handleSubmit, reset } = useForm<FormData>()
 
@@ -54,6 +56,10 @@ const Footer = () => {
   const [linkSrc, setLink] = useState(linkedin)
   const [telegramSrc, setTelegram] = useState(telegram)
   const [arrowDownSrc, setArrowDown] = useState(arrowDown)
+
+  useEffect(() => {
+    ScrollTrigger.refresh()
+  }, [pathname])
 
   useGSAP(() => {
     gsap.fromTo(
