@@ -151,8 +151,6 @@ const Faq = ({ data }: FaqProps) => {
           ))}
         </div>
       </div>
-      <div className="absolute -top-[800px] left-[500px] !-z-30 hidden h-[1900px] w-[1900px] transform bg-hero-pattern lg:block" />
-      <div className="absolute -left-[500px] -top-[100px] !-z-30 hidden h-[1900px] w-[1900px] transform bg-hero-pattern lg:block" />
     </section>
   )
 }

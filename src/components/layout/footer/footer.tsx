@@ -25,6 +25,16 @@ import { useToast } from '@/hooks/use-toast'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { usePathname } from 'next/navigation'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form'
+import MaskedInput from 'react-text-mask'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -44,8 +54,6 @@ const Footer = () => {
   const { theme } = useTheme()
   const locale = useLocale()
   const pathname = usePathname()
-
-  const { handleSubmit, reset } = useForm<FormData>()
 
   const year = new Date().getFullYear()
 
@@ -108,6 +116,31 @@ const Footer = () => {
     setArrowDown(theme === 'dark' ? arrowDown : arrowDownLight)
   }, [theme])
 
+  const formSchema = z.object({
+    name: z
+      .string()
+      .min(2, `${t('Minimum number of characters')} 2`)
+      .max(50, `${t('Maximum number of characters')} 50 `),
+    email: z.string().email('Невірний формат email'),
+    phone: z
+      .string()
+      .regex(
+        /^\+380 \(\d{3}\) \d{3}-\d{2}-\d{2}$/,
+        `${t('This field is required')}`,
+      ),
+    message: z.string().default(''),
+  })
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '+380 ',
+      message: '',
+    },
+  })
+
   async function handleCaptchaSubmission(token: string | null) {
     await verifyCaptcha(token)
       .then(() => setIsVerified(true))
@@ -128,7 +161,6 @@ const Footer = () => {
       const result = await messageMe(sendData)
       if (result?.success) {
         toast({ title: t('The message has been sent') })
-        reset()
       } else {
         toast({
           variant: 'destructive',
@@ -171,10 +203,10 @@ const Footer = () => {
       <div
         aria-label="contact"
         id="contact"
-        className="footer-section relative mx-auto mt-[55px] max-w-[1442px] px-[24px]"
+        className="footer-section relative mx-auto mt-[155px] max-w-[1442px] px-[24px]"
       >
         <div className="flex flex-col items-center justify-between lg:flex-row">
-          <div className="lg:mr-[100px]">
+          <div className="w-full lg:mr-[100px]">
             <div className="text-[34px] uppercase lg:text-[64px]">
               {t('Oleg-Tkach')}
             </div>
@@ -199,32 +231,118 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <form onSubmit={handleSubmit(onSubmit)} className="mt-[150px]">
-            <div className="max-w-[400px]">
-              <Input type={'text'} placeholder={t('name')} name={'name'} />
-              <Input type={'text'} placeholder={t('email')} name={'email'} />
-              <Input type={'phone'} placeholder={t('phone')} name={'phone'} />
-              <Input
-                type={'textarea'}
-                placeholder={t('message')}
-                name={'message'}
-              />
-            </div>
-            <div className="mt-[24px] flex w-[300px] flex-col items-center justify-between px-10 lg:w-[500px] lg:flex-row lg:items-start lg:px-0">
-              <ReCAPTCHA
-                className="recaptcha"
-                sitekey={`${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-                ref={recaptchaRef}
-                onChange={handleCaptchaSubmission}
-                hl={locale}
-              />
-              <div className="mt-[22px] flex w-full items-end justify-end lg:mt-0">
-                <Button variant="circle">{t('send')}</Button>
-              </div>
-            </div>
-          </form>
+          <div className="flex w-full items-center justify-center">
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="w-full lg:w-max"
+              >
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder={t('name')}
+                          variant="secondary"
+                          className="md:max-w-[320px]"
+                        />
+                      </FormControl>
+                      <FormMessage className="absolute -bottom-3" />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder={t('email')}
+                          variant="secondary"
+                          className="md:max-w-[320px]"
+                        />
+                      </FormControl>
+                      <FormMessage className="absolute -bottom-3" />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <MaskedInput
+                          {...field}
+                          mask={[
+                            '+',
+                            '3',
+                            '8',
+                            '0',
+                            ' ',
+                            '(',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            ')',
+                            ' ',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            '-',
+                            /\d/,
+                            /\d/,
+                            '-',
+                            /\d/,
+                            /\d/,
+                          ]}
+                          placeholder="+380 (XXX) XXX-XX-XX"
+                          showMask
+                          className="!mb-5 mt-[12px] h-[48px] w-full rounded-[8px] border-[1px] border-black bg-transparent px-[8px] py-[14px] text-[20px] text-white placeholder-black focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-white dark:text-white dark:placeholder-[#FAFAFA] md:max-w-[320px] lg:text-[16px]"
+                        />
+                      </FormControl>
+                      <FormMessage className="absolute bottom-0" />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <textarea
+                          {...field}
+                          placeholder={t('message')}
+                          className="h-28 w-full resize-none rounded-md border border-white bg-transparent p-3 text-white md:max-w-[320px]"
+                        />
+                      </FormControl>
+                      <FormMessage className="absolute -bottom-3" />
+                    </FormItem>
+                  )}
+                />
+                <div className="mt-[24px] px-10 lg:w-[400px] lg:flex-row lg:items-start lg:px-0">
+                  <ReCAPTCHA
+                    className="recaptcha !max-w-12"
+                    sitekey={`${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+                    ref={recaptchaRef}
+                    onChange={handleCaptchaSubmission}
+                    hl={locale}
+                  />
+                  <div className="!mt-7 flex w-full items-end justify-end lg:mt-0">
+                    <Button variant="circle">{t('send')}</Button>
+                  </div>
+                </div>
+              </form>
+            </Form>
+          </div>
         </div>
-        <div className="mb-[40px] mt-[62px] flex flex-col-reverse items-center justify-between gap-[20px] lg:flex-row">
+        <div className="mb-[40px] mt-[92px] flex flex-col-reverse items-center justify-between gap-[20px] lg:flex-row">
           <div>
             (c) {year} {t('Oleg-Tkach')}
           </div>
