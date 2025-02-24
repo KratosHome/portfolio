@@ -1,13 +1,8 @@
 'use client'
 import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import arrowRightBlack from '@/assets/icons/arrow-right-black.svg'
-import arrowRightWhite from '@/assets/icons/arrow-right-white.svg'
-
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+import { FiArrowRight } from 'react-icons/fi'
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
@@ -25,7 +20,7 @@ const buttonVariants = cva(
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
         circle:
-          'custom-button group z-30 flex aspect-square min-h-[120px] min-w-[120px] h-max w-max flex-shrink-0 flex-col items-center justify-center rounded-full border-[1px] border-stone-500/30 bg-[#0B66F5] p-4 text-[20px] font-bold uppercase backdrop-blur-[12.5px] dark:bg-[rgba(255,255,255,0.12)]',
+          'custom-button group z-30 flex aspect-square min-h-max min-w-[135px] h-max w-max flex-shrink-0 flex-col items-center justify-center rounded-full border-[1px] border-stone-500/30 bg-[#0B66F5] p-4 text-[20px] font-bold uppercase backdrop-blur-[12.5px] dark:bg-[rgba(255,255,255,0.12)]',
       },
       size: {
         default: 'h-9 px-4 py-2',
@@ -53,12 +48,6 @@ const Button = React.forwardRef<
   ButtonProps
 >(({ className, variant, size, asChild = false, ...props }, ref) => {
   const Comp = asChild ? 'div' : 'button'
-  const { theme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   return (
     <Comp
@@ -68,16 +57,15 @@ const Button = React.forwardRef<
       {...props}
     >
       {variant === 'circle' ? (
-        <div className="relative -mt-2 text-center duration-300 group-hover:scale-[1.1]">
-          {props.children}
-          {mounted && (
-            <Image
-              fill
-              className="mt-5"
-              src={theme === 'dark' ? arrowRightBlack : arrowRightWhite}
-              alt="arrow icon"
+        <div className="relative -mt-2 inline-block text-center duration-300 group-hover:scale-[1.1]">
+          <span className="inline-block">{props.children}</span>
+          <div className="absolute left-0 top-8 flex w-full -translate-y-1/2 items-center justify-between text-blue-500">
+            <div className="-mr-4 h-[2px] w-full bg-current"></div>
+            <FiArrowRight
+              size={30}
+              className="ml-2 flex-shrink-0 text-current"
             />
-          )}
+          </div>
         </div>
       ) : (
         props.children

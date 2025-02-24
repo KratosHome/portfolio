@@ -1,19 +1,9 @@
 'use client'
 import './footer.scss'
-import arrowDown from '@/assets/icons/arrow-down.svg'
-import arrowDownLight from '@/assets/icons/arrowDownLight.svg'
-import ArrowRight from '@/assets/icons/ArrowRight.svg'
-import Image from 'next/image'
 import { useLocale } from 'use-intl'
 import { useTranslations } from 'next-intl'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useEffect, useRef, useState } from 'react'
-import gitHub from '@/assets/icons/github.svg'
-import linkedinLight from '@/assets/icons/linkedinLight.svg'
-import linkedin from '@/assets/icons/linkedin.svg'
-import telegramLight from '@/assets/icons/telegramLight.svg'
-import telegram from '@/assets/icons/telegram.svg'
-import { useTheme } from 'next-themes'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { verifyCaptcha } from '@/server/verifyCaptcha'
 import { messageMe } from '@/server/telegram/message-me.server'
@@ -35,6 +25,8 @@ import {
 import MaskedInput from 'react-text-mask'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { FaGithub, FaInstagram, FaLinkedin, FaTelegram } from 'react-icons/fa'
+import { FiArrowDown, FiArrowRight } from 'react-icons/fi'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -51,7 +43,6 @@ const Footer = () => {
   const recaptchaRef = useRef<ReCAPTCHA>(null)
 
   const t = useTranslations('footer')
-  const { theme } = useTheme()
   const locale = useLocale()
   const pathname = usePathname()
 
@@ -59,11 +50,6 @@ const Footer = () => {
 
   const [isVerified, setIsVerified] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean | undefined>(false)
-
-  const [gitSrc, setGitSrc] = useState(gitHub)
-  const [linkSrc, setLink] = useState(linkedin)
-  const [telegramSrc, setTelegram] = useState(telegram)
-  const [arrowDownSrc, setArrowDown] = useState(arrowDown)
 
   useEffect(() => {
     ScrollTrigger.refresh()
@@ -101,20 +87,13 @@ const Footer = () => {
         scrollTrigger: {
           trigger: '.planet-section',
           start: 'top 80%',
-          end: 'top 20%',
+          end: 'top 10%',
           toggleActions: 'play reverse play reverse',
           markers: false,
         },
       },
     )
   })
-
-  useEffect(() => {
-    setGitSrc(theme === 'dark' ? gitHub : gitHub)
-    setLink(theme === 'dark' ? linkedin : linkedinLight)
-    setTelegram(theme === 'dark' ? telegram : telegramLight)
-    setArrowDown(theme === 'dark' ? arrowDown : arrowDownLight)
-  }, [theme])
 
   const formSchema = z.object({
     name: z
@@ -161,6 +140,9 @@ const Footer = () => {
       const result = await messageMe(sendData)
       if (result?.success) {
         toast({ title: t('The message has been sent') })
+        recaptchaRef.current?.reset()
+        form.reset()
+        setIsVerified(false)
       } else {
         toast({
           variant: 'destructive',
@@ -174,8 +156,7 @@ const Footer = () => {
   return (
     <footer className="relative pt-[150px] lg:pt-[250px]">
       {loading && <Loader />}
-      <div className="absolute -top-[600px] left-[200px] -z-20 hidden h-[1900px] w-[1900px] transform bg-hero-pattern lg:block" />
-      <div className="absolute -right-[400px] -top-[400px] -z-20 hidden h-[1900px] w-[1900px] transform bg-hero-pattern lg:-top-[100px] lg:right-[200px] lg:block" />
+      <div className="absolute -right-[100px] top-[200px] -z-10 h-[500px] w-[500px] rounded-full bg-gradient-to-r from-blue-300 to-blue-500 opacity-[0.10] blur-3xl lg:-top-[50px] lg:h-[900px] lg:w-[900px]" />
       <div className="relative mx-auto max-w-[1442px] px-[24px]">
         <div className="flex flex-col items-end justify-end">
           <div className="animate-scale-in-out bg-group-pattern-light absolute -top-[55px] left-0 -z-20 size-[200px] -translate-x-1/2 dark:opacity-[0.1] dark:bg-group-pattern lg:size-[200px]" />
@@ -185,14 +166,13 @@ const Footer = () => {
           <div className="text-[32px] font-bold uppercase text-[#0B66F5] lg:mt-[32px]">
             {t('Just fill out the form below')}
           </div>
-          <Image
-            className="mt-[83px]"
-            src={arrowDownSrc}
-            alt={t('arrow down')}
-          />
+          <div className="mt-24 flex flex-col items-center">
+            <div className="!-mb-2 h-16 w-[2px] bg-blue-500"></div>
+            <FiArrowDown size={30} className="text-blue-500" />
+          </div>
         </div>
       </div>
-      <div className="mt-[155px] h-[1px] w-full bg-stone-500/30 lg:mt-[380px]" />
+      <div className="mt-[155px] h-[1px] w-full bg-stone-500/30 lg:mt-[310px]" />
       <div className="planet-section relative mx-auto h-10 min-h-max w-full max-w-[1442px] px-[24px]">
         <div className="absolute -top-[45px] right-[0] max-w-[1445px] rotate-[25deg] justify-end lg:-top-[80px]">
           <div className="circle-footer absolute right-[100px] ml-[110px] mt-[70px] size-[55px] rounded-full bg-[rgba(255,255,255,0.3)] p-[55px] opacity-40 blur-2xl lg:size-[125px] lg:p-[135px]" />
@@ -222,12 +202,10 @@ const Footer = () => {
               <div className="mr-3 mt-[60px] h-[1px] w-[289px] bg-[#FAFAFA]/50" />
               <div className="mt-[45px] flex flex-col items-center text-[20px]">
                 <span>{t('let-connect')}</span>
-                <Image
-                  src={ArrowRight}
-                  alt={t('arrow-right')}
-                  width={90}
-                  height={20}
-                />
+                <div className="flex items-center text-blue-500">
+                  <div className="-mr-2 h-[2px] w-16 bg-current"></div>
+                  <FiArrowRight size={30} className="text-current" />
+                </div>
               </div>
             </div>
           </div>
@@ -335,7 +313,9 @@ const Footer = () => {
                     hl={locale}
                   />
                   <div className="!mt-7 flex w-full items-end justify-end lg:mt-0">
-                    <Button variant="circle">{t('send')}</Button>
+                    <Button disabled={!isVerified} variant="circle">
+                      {t('send')}
+                    </Button>
                   </div>
                 </div>
               </form>
@@ -352,45 +332,40 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer nofollow"
               aria-label="GitHub"
+              className="transition-all duration-300 hover:scale-110 hover:text-blue-200"
             >
-              <Image
-                className="!fill-amber-700 !stroke-red-500 transition-transform duration-300 hover:scale-[1.2]"
-                src={gitSrc}
-                alt="github"
-                width={40}
-                height={40}
-              />
+              <FaGithub size={35} />
             </a>
             <a
-              className="block"
+              className="block transition-all duration-300 hover:scale-110 hover:text-blue-200"
               href="https://www.linkedin.com/in/olegtkach101/"
               target="_blank"
               rel="noopener noreferrer nofollow"
               aria-label="LinkedIn"
             >
-              <Image
-                className="transition-transform duration-300 hover:scale-[1.2]"
-                src={linkSrc}
-                alt="linkedin"
-                width={40}
-                height={40}
-              />
+              <FaLinkedin size={35} />
             </a>
             <a
               href="https://t.me/KratosHome"
               target="_blank"
               rel="noopener noreferrer nofollow"
               aria-label="Telegram"
+              className="transition-all duration-300 hover:scale-110 hover:text-blue-200"
             >
-              <Image
-                className="transition-transform duration-300 hover:scale-[1.2]"
-                src={telegramSrc}
-                alt="telegram"
-                width={40}
-                height={40}
-              />
+              <FaTelegram size={35} />
+            </a>
+            <a
+              href="https://www.instagram.com/codecraftmaster9"
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              aria-label="Instagram"
+              className="transition-all duration-300 hover:scale-110 hover:text-blue-200"
+            >
+              <FaInstagram size={35} />
             </a>
           </div>
+
+          <div />
         </div>
       </div>
     </footer>
