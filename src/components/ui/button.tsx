@@ -59,7 +59,7 @@ const Button = React.forwardRef<
       {variant === 'circle' ? (
         <div className="relative -mt-2 inline-block text-center duration-300 group-hover:scale-[1.1]">
           <span className="inline-block">{props.children}</span>
-          <div className="absolute left-0 top-8 flex w-full -translate-y-1/2 items-center justify-between text-blue-500">
+          <div className="absolute left-0 top-8 flex w-full -translate-y-1/2 items-center justify-between text-white dark:text-blue-500">
             <div className="-mr-4 h-[2px] w-full bg-current"></div>
             <FiArrowRight
               size={30}

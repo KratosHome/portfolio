@@ -1,23 +1,15 @@
 'use client'
 import './hero.scss'
-import gitHub from '@/assets/icons/github.svg'
-import gitHubLight from '@/assets/icons/githubLight.svg'
-import linkedin from '@/assets/icons/linkedin.svg'
-import linkedinLight from '@/assets/icons/linkedinLight.svg'
-import telegram from '@/assets/icons/telegram.svg'
-import telegramLight from '@/assets/icons/telegramLight.svg'
-import Image from 'next/image'
-import { useTheme } from 'next-themes'
 import { useTranslations } from 'next-intl'
 import { Technologies } from '@/components/client/hero/technologies/technologies'
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { HireMe } from '@/components/client/hire-me'
+import { FaGithub, FaInstagram, FaLinkedin, FaTelegram } from 'react-icons/fa'
 
 const Hero = () => {
   const t = useTranslations('home-page.hero')
-  const { theme } = useTheme()
 
   const bigСircleRef = useRef<HTMLDivElement>(null)
   const bgRef = useRef<HTMLDivElement>(null)
@@ -170,7 +162,7 @@ const Hero = () => {
           <div className="flex justify-between lg:w-1/2">
             <div
               ref={socialIconsRef}
-              className="flex min-w-[160px] flex-row justify-between border-t-2 border-black py-[5px] pr-[16px] dark:border-white lg:min-w-[0px] lg:flex-col lg:border-r-[1px] lg:border-t-0"
+              className="flex min-w-[160px] flex-row justify-between gap-2 border-t-2 border-black py-[5px] pr-[16px] dark:border-white lg:min-w-[0px] lg:flex-col lg:border-r-[1px] lg:border-t-0"
             >
               <a
                 href="https://github.com/KratosHome"
@@ -179,27 +171,21 @@ const Hero = () => {
                 aria-label="GitHub"
                 className="scale-0 opacity-0"
               >
-                <Image
-                  className="!fill-amber-700 !stroke-red-500 transition-transform duration-300 hover:scale-[1.2]"
-                  src={theme === 'light' ? gitHubLight : gitHub}
-                  alt="github"
-                  width={40}
-                  height={40}
+                <FaGithub
+                  size={35}
+                  className="transition-transform duration-300 hover:scale-[1.1]"
                 />
               </a>
               <a
-                className="block scale-0 opacity-0 lg:my-[16px]"
                 href="https://www.linkedin.com/in/olegtkach101/"
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 aria-label="LinkedIn"
+                className="scale-0 opacity-0"
               >
-                <Image
-                  className="transition-transform duration-300 hover:scale-[1.2]"
-                  src={theme === 'light' ? linkedinLight : linkedin}
-                  alt="linkedin"
-                  width={40}
-                  height={40}
+                <FaLinkedin
+                  size={35}
+                  className="transition-transform duration-300 hover:scale-[1.1]"
                 />
               </a>
               <a
@@ -209,12 +195,21 @@ const Hero = () => {
                 aria-label="Telegram"
                 className="scale-0 opacity-0"
               >
-                <Image
-                  className="tvfsdfvdsf transition-transform duration-300 hover:scale-[1.2]"
-                  src={theme === 'light' ? telegramLight : telegram}
-                  alt="telegram"
-                  width={40}
-                  height={40}
+                <FaTelegram
+                  size={35}
+                  className="transition-transform duration-300 hover:scale-[1.1]"
+                />
+              </a>
+              <a
+                href="https://www.instagram.com/codecraftmaster9"
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                aria-label="Instagram"
+                className="scale-0 opacity-0"
+              >
+                <FaInstagram
+                  size={35}
+                  className="transition-transform duration-300 hover:scale-[1.1]"
                 />
               </a>
             </div>

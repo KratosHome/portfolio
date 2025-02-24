@@ -364,7 +364,6 @@ const Footer = () => {
               <FaInstagram size={35} />
             </a>
           </div>
-
           <div />
         </div>
       </div>
