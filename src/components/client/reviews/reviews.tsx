@@ -69,7 +69,7 @@ const Reviews = ({ data }: { data: IReview[] }) => {
           scrollTrigger: {
             trigger: card as HTMLElement,
             start: 'top 90%',
-            end: 'top 10%',
+            end: 'top -5%',
             toggleActions: 'play reverse play reverse',
             markers: false,
           },
@@ -115,7 +115,7 @@ const Reviews = ({ data }: { data: IReview[] }) => {
               rows: 2,
               fill: 'row',
             }}
-            spaceBetween={10}
+            spaceBetween={40}
             pagination={{
               clickable: true,
             }}

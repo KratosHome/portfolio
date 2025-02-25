@@ -8,9 +8,7 @@ import 'swiper/css/grid'
 import 'swiper/css/pagination'
 import Experience from '@/components/client/experience/experience'
 import { experienceData } from '@/data/experience'
-import { faqData } from '@/data/faq'
 import Reviews from '@/components/client/reviews/reviews'
-import Faq from '@/components/client/faq/faq'
 import { dataReviews } from '@/data/reviews'
 
 type Params = Promise<{ locale: ILocale }>
@@ -25,7 +23,6 @@ const Home = async ({ params }: { params: Params }) => {
       <Projects projects={projectsData[locale]} />
       <Experience experience={experienceData[locale]} />
       <Reviews data={dataReviews} />
-      <Faq data={faqData[locale]} />
     </>
   )
 }
