@@ -1,18 +1,18 @@
 'use client'
-import arrow from '@/assets/icons/arrow-left.svg'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useTranslations } from 'next-intl'
+import { FiArrowLeft } from 'react-icons/fi'
 
 export const ButtonBeck = () => {
   const router = useRouter()
-  const t = useTranslations('auth')
   return (
     <button
       className="duration-300 hover:scale-75"
       onClick={() => router.back()}
     >
-      <Image src={arrow} width={50} height={50} alt={t('arrow-beck')} />
+      <div className="flex items-center text-blue-500">
+        <FiArrowLeft size={30} className="text-current" />
+        <div className="!-ml-2 h-[2px] w-12 bg-current"></div>
+      </div>
     </button>
   )
 }
