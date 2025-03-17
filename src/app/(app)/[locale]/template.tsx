@@ -16,8 +16,9 @@ export default function Template({ children }: { children: React.ReactNode }) {
     [`/${locale}/`]: <Header logo={<MenuInfoOlegTkach />} />,
     [`/${locale}/blog`]: <Header logo={<MenuInfoCodeCraft />} />,
   }
-
-  const userInfoComponent = userInfoComponentsMap[path] || null
+  const userInfoComponent = userInfoComponentsMap[path] || (
+    <Header logo={<MenuInfoCodeCraft />} />
+  )
 
   return (
     <div>

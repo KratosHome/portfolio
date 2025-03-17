@@ -1,7 +1,7 @@
 const notesUa = [
   {
     title: 'Круті штуки зі світу мистецтва',
-    href: 'https://artsandculture.google.com',
+    href: 'https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw?cp=e30',
     link: 'artsandculture.google.com',
     description:
       'Від неймовірних картин до дивовижних історій – досліджуй культуру у новому форматі!',
@@ -46,7 +46,7 @@ const notesUa = [
 const notesEn = [
   {
     title: 'Cool Things from the World of Art',
-    href: 'https://artsandculture.google.com',
+    href: 'https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw?cp=e30',
     link: 'artsandculture.google.com',
     description:
       'From incredible paintings to fascinating stories – explore culture in a whole new way!',
@@ -91,7 +91,7 @@ const notesEn = [
 const notesFr = [
   {
     title: 'Choses incroyables du monde de l’art',
-    href: 'https://artsandculture.google.com',
+    href: 'https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw?cp=e30m',
     link: 'artsandculture.google.com',
     description:
       'Des peintures fascinantes aux histoires captivantes – explorez la culture sous un nouveau jour !',
@@ -136,7 +136,7 @@ const notesFr = [
 const notesDe = [
   {
     title: 'Coole Dinge aus der Welt der Kunst',
-    href: 'https://artsandculture.google.com',
+    href: 'https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw?cp=e30',
     link: 'artsandculture.google.com',
     description:
       'Von beeindruckenden Gemälden bis hin zu faszinierenden Geschichten – entdecke Kultur auf eine neue Art und Weise!',
@@ -181,7 +181,7 @@ const notesDe = [
 const notesEs = [
   {
     title: 'Cosas increíbles del mundo del arte',
-    href: 'https://artsandculture.google.com',
+    href: 'https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw?cp=e30',
     link: 'artsandculture.google.com',
     description:
       'Desde pinturas impresionantes hasta historias fascinantes: ¡explora la cultura de una manera completamente nueva!',
@@ -226,7 +226,7 @@ const notesEs = [
 const notesHi = [
   {
     title: 'कला की दुनिया से अद्भुत चीज़ें',
-    href: 'https://artsandculture.google.com',
+    href: 'https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw?cp=e30',
     link: 'artsandculture.google.com',
     description:
       'अद्भुत चित्रों से लेकर रोमांचक कहानियों तक – संस्कृति को एक नए अंदाज़ में खोजें!',
@@ -271,7 +271,7 @@ const notesHi = [
 const notesIt = [
   {
     title: 'Cose straordinarie dal mondo dell’arte',
-    href: 'https://artsandculture.google.com',
+    href: 'https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw?cp=e30',
     link: 'artsandculture.google.com',
     description:
       'Dai dipinti incredibili alle storie affascinanti – esplora la cultura in un modo completamente nuovo!',
@@ -316,7 +316,7 @@ const notesIt = [
 const notesJa = [
   {
     title: 'アートの世界の素晴らしいもの',
-    href: 'https://artsandculture.google.com',
+    href: 'https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw?cp=e30',
     link: 'artsandculture.google.com',
     description:
       '驚くべき絵画から魅力的なストーリーまで、新しい形で文化を探求しよう！',
@@ -361,7 +361,7 @@ const notesJa = [
 const notesKo = [
   {
     title: '예술 세계의 멋진 것들',
-    href: 'https://artsandculture.google.com',
+    href: 'https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw?cp=e30',
     link: 'artsandculture.google.com',
     description:
       '놀라운 그림부터 매력적인 이야기까지 – 새로운 방식으로 문화를 탐험하세요!',
@@ -406,7 +406,7 @@ const notesKo = [
 const notesPt = [
   {
     title: 'Coisas incríveis do mundo da arte',
-    href: 'https://artsandculture.google.com',
+    href: 'https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw?cp=e30',
     link: 'artsandculture.google.com',
     description:
       'De pinturas impressionantes a histórias fascinantes – explore a cultura de uma forma totalmente nova!',
@@ -451,7 +451,7 @@ const notesPt = [
 const notesSv = [
   {
     title: 'Fantastiska saker från konstvärlden',
-    href: 'https://artsandculture.google.com',
+    href: 'https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw?cp=e30',
     link: 'artsandculture.google.com',
     description:
       'Från otroliga målningar till fascinerande berättelser – upptäck kultur på ett helt nytt sätt!',
@@ -496,7 +496,7 @@ const notesSv = [
 const notesZh = [
   {
     title: '艺术世界的精彩事物',
-    href: 'https://artsandculture.google.com',
+    href: 'https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw?cp=e30',
     link: 'artsandculture.google.com',
     description: '从令人惊叹的绘画到迷人的故事——以全新的方式探索文化！',
   },

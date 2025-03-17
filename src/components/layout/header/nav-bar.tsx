@@ -42,23 +42,20 @@ export function Navbar({ className }: NavbarProps) {
             <HoveredLink href="#contact">{t('contact')}</HoveredLink>
           </div>
         </MenuItem>
-        <MenuItem
-          setActive={setActive}
-          active={active}
-          item={t('blog')}
-          link="/blog"
-        >
+        <MenuItem setActive={setActive} active={active} item={t('blog')}>
           <div className="grid grid-cols-[auto_1fr_auto] gap-10 p-4 text-sm">
             <div className="flex flex-col gap-3">
               <ProductItem
+                openInNewTab={true}
                 title={t('practice')}
-                href="/blog/practice-key-achieving-success"
+                href="https://dou.ua/forums/topic/50605"
                 src="/header/modern.webp"
                 description={t('practice_the_key_factor_in_achieving_success')}
               />
               <ProductItem
+                openInNewTab={true}
                 title={t('modern_job_search')}
-                href="/blog/modern-problems-job-search"
+                href="https://dou.ua/forums/topic/44612"
                 src="/header/practice.webp"
                 description={t(
                   'modern_job_search_challenges_in_IT_is_there_light_at_the_end_of_the_tunnel',
@@ -73,61 +70,51 @@ export function Navbar({ className }: NavbarProps) {
             </div>
           </div>
         </MenuItem>
-        <MenuItem
-          setActive={setActive}
-          active={active}
-          item={t('mentoring')}
-          link="mentoring/projects"
-        >
+        <MenuItem setActive={setActive} active={active} item={t('mentoring')}>
           <div className="grid grid-cols-2 gap-10 p-4 text-sm">
             <div className="flex flex-col gap-3">
-              <HoveredLink href="/mentoring/projects" className="text-center">
-                {t('projects')}
-              </HoveredLink>
+              <span className="text-center">{t('projects')}</span>
               <ProductItem
+                openInNewTab={true}
+                title="Slice Drys"
+                href="https://slicedrys.com"
+                src="/header/slice-drys.png"
+                description={t('natural_dried_meat_fruits_vegetables')}
+              />
+              <ProductItem
+                openInNewTab={true}
                 title="Ecousadba"
-                href="/blog/practice-key-achieving-success"
+                href="https://ecousadba.in.ua/uk"
                 src="/header/ecousadba.png"
                 description={t(
                   'hotel_and_restaurant_complex_in_harmony_with_nature',
                 )}
               />
-              <ProductItem
-                title="Slice Drys"
-                href="/blog/practice-key-achieving-success"
-                src="/header/slice-drys.png"
-                description={t('natural_dried_meat_fruits_vegetables')}
-              />
-              <ProductItem
-                title="Sharm Beauty"
-                href="/blog/practice-key-achieving-success"
-                src="/header/sharm-beauty.png"
-                description={t('cosmetic_treatments_for_your_perfect_skin')}
-              />
             </div>
             <div className="flex flex-col gap-3">
-              <HoveredLink href="/mentoring/members" className="text-center">
-                {t('members')}
-              </HoveredLink>
+              <span className="text-center">{t('members')}</span>
               <ProductItem
+                openInNewTab={true}
                 title="Andrey Viazovskiy"
-                href="/blog/practice-key-achieving-success"
+                href="https://www.linkedin.com/in/andrey-viazovskiy"
                 src="/header/andrey_viazovskiy.jpeg"
                 description={t(
                   'specialist_in_developing_complex_interfaces_well_versed_in_the_modern_frontend_stack',
                 )}
               />
               <ProductItem
+                openInNewTab={true}
                 title="Evgeniy Martynrnko"
-                href="/blog/practice-key-achieving-success"
+                href="https://www.linkedin.com/in/evhenii-martynenko-a9005520a/"
                 src="/header/evgeni_martynrnko.jpeg"
                 description={t(
                   'front_end_developer_with_experience_in_building_high_performance_web_applications_and_optimizing_UI_UX',
                 )}
               />
               <ProductItem
+                openInNewTab={true}
                 title="Liudmyla Babenko"
-                href="/blog/practice-key-achieving-success"
+                href="https://www.linkedin.com/in/liudmyla-babenko/"
                 src="/header/liudmyla_babenko.jpeg"
                 description={t(
                   'front_end_developer_with_experience_in_building_user_friendly_and_fast_interfaces_focused_on_high_quality_code_and_modern_technologies',

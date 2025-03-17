@@ -4,27 +4,13 @@ import { useTranslations } from 'next-intl'
 import { useGSAP } from '@gsap/react'
 import { useRef, useState } from 'react'
 import gsap from 'gsap'
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Grid } from 'swiper/modules'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { HireMe } from '@/components/client/hire-me'
 
 gsap.registerPlugin(ScrollTrigger)
-
-interface IReview {
-  _id: number
-  userName: string
-  email: string
-  company: string
-  icon: StaticImageData
-  link: string
-  position: string
-  reviews: string
-  isPublic: boolean
-  createdAt: string
-  updatedAt: string
-}
 
 const Reviews = ({ data }: { data: IReview[] }) => {
   const reviewRefs = useRef<HTMLDivElement[]>([])

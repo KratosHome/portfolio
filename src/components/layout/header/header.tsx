@@ -1,8 +1,5 @@
 import './header.scss'
-import Link from 'next/link'
 import { FC, ReactNode } from 'react'
-import { useLocale } from 'use-intl'
-import { useTranslations } from 'next-intl'
 import { Navbar } from '@/components/layout/header/nav-bar'
 import ThemeChange from '@/components/layout/header/theme-change'
 import LanguageChange from '@/components/layout/header/language-change'
@@ -13,9 +10,6 @@ interface IMenuProps {
 }
 
 const Header: FC<IMenuProps> = ({ logo }) => {
-  const t = useTranslations('header')
-  const locale = useLocale()
-
   return (
     <>
       <header className="max-w-screen pt-[20px]">
@@ -26,16 +20,6 @@ const Header: FC<IMenuProps> = ({ logo }) => {
               <nav className="hidden text-[20px] md:block">
                 <ul className="flex items-center gap-[32px]">
                   <Navbar />
-                  <li className="group">
-                    <Link
-                      className="custom-login block rounded-[35px] border-b border-[#0B66F5] px-[15px] py-[10px] text-[#0B66F5] backdrop-blur-[12.5px] dark:border-zinc-600 dark:text-white"
-                      href={`/${locale}/login`}
-                    >
-                      <span className="block duration-300 group-hover:scale-[1.1]">
-                        {t('login')}
-                      </span>
-                    </Link>
-                  </li>
                 </ul>
               </nav>
               <div className="hidden items-center gap-[15px] md:flex">
@@ -64,3 +48,16 @@ const Header: FC<IMenuProps> = ({ logo }) => {
 }
 
 export default Header
+
+/*
+  <li className="group">
+                    <Link
+                      className="custom-login block rounded-[35px] border-b border-[#0B66F5] px-[15px] py-[10px] text-[#0B66F5] backdrop-blur-[12.5px] dark:border-zinc-600 dark:text-white"
+                      href={`/${locale}/login`}
+                    >
+                      <span className="block duration-300 group-hover:scale-[1.1]">
+                        {t('login')}
+                      </span>
+                    </Link>
+                  </li>
+ */

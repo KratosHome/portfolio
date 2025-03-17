@@ -22,7 +22,7 @@ export default async function Page(props: {
   const filters = searchParams.filters ? searchParams.filters : ''
 
   const post = await fetch(
-    `${url}/api/post/get-post?locale=${locale}&authors=${authors}&filters=${filters}`,
+    `${url}/api/post/get-posts?locale=${locale}&authors=${authors}&filters=${filters}`,
     {
       next: { revalidate: 60 },
     },

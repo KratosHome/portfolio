@@ -93,11 +93,13 @@ export const ProductItem = ({
   description,
   href,
   src,
+  openInNewTab = false,
 }: {
   title: string
   description: string
   href: string
   src: string
+  openInNewTab?: boolean
 }) => {
   const maxLength = 90
   const shortText =
@@ -108,6 +110,8 @@ export const ProductItem = ({
   return (
     <Link
       href={href}
+      target={openInNewTab ? '_blank' : undefined}
+      rel={openInNewTab ? 'noopener noreferrer' : undefined}
       className="group flex space-x-2 transition-all duration-300 ease-out hover:scale-105"
     >
       <Image
