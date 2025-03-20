@@ -57,7 +57,7 @@ export const faqDataEn = [
   },
   {
     id: 3,
-    question: 'Projects for portfolio',
+    question: 'ProjectsNew for portfolio',
     answer:
       'Ideal projects for a portfolio are those that have the real potential to be launched. Consider creating a project that you or your loved ones will actually use. For example, a project for friends or family is a great option because it not only demonstrates your technical skills but also proves that you can solve real problems. This approach adds value to your portfolio, making it more attractive to potential employers or clients.',
   },

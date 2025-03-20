@@ -14,6 +14,7 @@ import { locales } from '@/data/locales'
 import type { Metadata } from 'next'
 import { homeMateData } from '@/data/meta-data/home-meta-data'
 import MainJsonLd from '@/components/json-ld/main-kson-ld'
+import ProjectsNew from '@/components/client/projectsNew/projects-new'
 
 type Params = Promise<{ locale: ILocale }>
 
@@ -58,6 +59,7 @@ const Home = async ({ params }: { params: Params }) => {
       />
       <Hero />
       <Services services={servicesData[locale]} />
+      <ProjectsNew />
       <Projects projects={projectsData[locale]} />
       <Experience experience={experienceData[locale]} />
       <Reviews data={dataReviews} />

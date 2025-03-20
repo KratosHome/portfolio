@@ -3,6 +3,7 @@ import { PostItem } from '@/components/client/post-itme/post-itme'
 import { ButtonBeck } from '@/components/client/button-beck'
 import { FilterItems } from '@/components/client/filter-items'
 import { Pagination } from '@/components/client/pagination'
+import { notFound } from 'next/navigation'
 
 type Params = Promise<{ locale: ILocale }>
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
@@ -12,6 +13,10 @@ export default async function Page(props: {
   searchParams: SearchParams
 }) {
   const url = process.env.NEXT_URL
+
+  if (url === 'https://codecraftmaster.com/') {
+    return notFound()
+  }
 
   const { locale } = await props.params
   const searchParams = await props.searchParams

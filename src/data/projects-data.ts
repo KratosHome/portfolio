@@ -19,7 +19,6 @@ import tailwind from '@/assets/technologies/tailwindcss.svg'
 import chartjs from '@/assets/technologies/chartjs-logo.svg'
 import vueFlow from '@/assets/technologies/vue-flow.png'
 import threejs from '@/assets/technologies/threejs.svg'
-
 const projectsUk = [
   {
     id: 1,
