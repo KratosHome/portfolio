@@ -70,7 +70,13 @@ export function Navbar({ className }: NavbarProps) {
             </div>
           </div>
         </MenuItem>
-        <MenuItem setActive={setActive} active={active} item={t('mentoring')}>
+        <MenuItem
+          link="https://teamchallenge.io/"
+          openInNewTab={true}
+          setActive={setActive}
+          active={active}
+          item={'Team Challenge'}
+        >
           <div className="grid grid-cols-2 gap-10 p-4 text-sm">
             <div className="flex flex-col gap-3">
               <span className="text-center">{t('projects')}</span>

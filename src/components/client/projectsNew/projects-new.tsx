@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -12,10 +12,27 @@ import { useTranslations } from 'next-intl'
 import arrowAslant from '@/assets/icons/arrow-aslant.svg'
 import { projectsNew } from '@/data/projects'
 
+function useWindowWidth() {
+  const [width, setWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 0,
+  )
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  return width
+}
+
 const ProjectsNew = () => {
   const t = useTranslations('home-page.project')
 
   const [activeIndex, setActiveIndex] = useState(0)
+
+  const width = useWindowWidth()
+  const isMobileDevice = width < 768
 
   return (
     <section aria-label="projects" id="projects">
@@ -63,7 +80,7 @@ const ProjectsNew = () => {
                     {isActive ? (
                       <>
                         {slide.isMobile ? (
-                          <div className="flex h-full gap-2 p-2">
+                          <div className="flex h-full gap-2 p-4">
                             <motion.div
                               initial={{ opacity: 0, scale: 0.7, x: -50 }}
                               animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -130,7 +147,7 @@ const ProjectsNew = () => {
                             </motion.div>
                           </div>
                         ) : (
-                          <div className="flex h-full flex-col justify-between p-1">
+                          <div className="border-white/3 flex h-full flex-col justify-between rounded-2xl border-r-2 p-4">
                             <motion.div
                               initial={{ opacity: 0, scale: 0.8, rotateX: 90 }}
                               animate={{ opacity: 1, scale: 1, rotateX: 0 }}

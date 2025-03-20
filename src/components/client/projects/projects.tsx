@@ -261,7 +261,6 @@ const Projects: FC<ProjectsProps> = ({ projects }) => {
     <section aria-label="projects" id="projects">
       <div className="relative mx-auto mb-[140px] mt-[120px] max-w-[1442px] lg:px-[24px]">
         <div className="absolute -left-[100px] -top-[30px] size-[200px] flex-shrink-0 rounded-full border-black border-stone-500/30 bg-[linear-gradient(127deg,_rgba(11,_102,_245,_0.30)_49.23%,_rgba(78,_128,_206,_0.15)_83.27%,_rgba(255,_255,_255,_0.00)_102.62%)] backdrop-blur-[12.5px] dark:border dark:bg-gradient-to-tr dark:from-[rgba(255,255,255,0.12)] dark:to-[rgba(255,255,255,0)] xl:-left-[200px] xl:size-[400px]" />
-
         <div className="absolute right-[200px] top-[100px] -z-40 hidden h-[1900px] w-[1900px] transform bg-hero-pattern lg:block" />
         <h2 className="my-0 mr-[20px] text-right text-[40px] font-light uppercase lg:text-[96px]">
           {t('project')}
@@ -280,7 +279,7 @@ const Projects: FC<ProjectsProps> = ({ projects }) => {
         </div>
         <div ref={descProjRef} className="mt-[51px] hidden w-full xl:block">
           <Swiper
-            slidesPerView={3}
+            slidesPerView={'auto'}
             slidesPerGroup={3}
             grid={{
               rows: 2,

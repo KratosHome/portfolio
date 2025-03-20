@@ -20,17 +20,23 @@ export const MenuItem = ({
   item,
   link,
   children,
+  openInNewTab = false,
 }: {
   setActive: (item: string) => void
   active: string | null
   item: string
   link?: string
   children?: React.ReactNode
+  openInNewTab?: boolean
 }) => {
   return (
     <div onMouseEnter={() => setActive(item)} className="relative">
       {link ? (
-        <Link href={link}>
+        <Link
+          href={link}
+          target={openInNewTab ? '_blank' : undefined}
+          rel={openInNewTab ? 'noopener noreferrer' : undefined}
+        >
           <motion.p
             transition={{ duration: 0.3 }}
             className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white"
