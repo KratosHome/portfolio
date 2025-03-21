@@ -109,12 +109,10 @@ export function Navbar({ className }: NavbarProps) {
               />
               <ProductItem
                 openInNewTab={true}
-                title="Evgeniy Martynrnko"
-                href="https://www.linkedin.com/in/evhenii-martynenko-a9005520a/"
-                src="/header/evgeni_martynrnko.jpeg"
-                description={t(
-                  'front_end_developer_with_experience_in_building_high_performance_web_applications_and_optimizing_UI_UX',
-                )}
+                title="Viktoriia Horovaia"
+                href="https://www.linkedin.com/in/viktoriiahorovaia"
+                src="/header/viktoriia_horovaia.jpeg"
+                description={t('viktoriia_horovaia')}
               />
               <ProductItem
                 openInNewTab={true}
