@@ -1,499 +1,357 @@
 'use client'
+import React, { FC, useRef, useState } from 'react'
 import './projects.scss'
-import { useTranslations } from 'next-intl'
-import { FC, useEffect, useRef, useState } from 'react'
-import arrowAslant from '@/assets/icons/arrow-aslant.svg'
-import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Grid } from 'swiper/modules'
+import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules'
+import { AnimatePresence, motion } from 'framer-motion'
+import 'swiper/css'
+import 'swiper/css/effect-coverflow'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+import Image from 'next/image'
+import { useTranslations } from 'next-intl'
+import arrowAslant from '@/assets/icons/arrow-aslant.svg'
+import { HireMe } from '@/components/client/hire-me'
+import { useWindowWidth } from '@/hooks/use-window-width'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { Swiper as SwiperCore } from 'swiper'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import arrowLong from '@/assets/icons/arrow-long.svg'
-import arrowLongLight from '@/assets/icons/arrow-long-light.svg'
-import { useTheme } from 'next-themes'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { HireMe } from '@/components/client/hire-me'
 
 gsap.registerPlugin(ScrollTrigger)
 
-interface ProjectsProps {
+interface ProjectsNewProps {
   projects: IProject[]
 }
 
-const Projects: FC<ProjectsProps> = ({ projects }) => {
-  const descProjRef = useRef<HTMLDivElement | null>(null)
-  const descProjRefMob = useRef<HTMLDivElement | null>(null)
-
-  const projectsRefs = useRef<HTMLDivElement[]>([])
-  const descriptionRefs = useRef<HTMLDivElement[]>([])
-
+const Projects: FC<ProjectsNewProps> = ({ projects }) => {
   const t = useTranslations('home-page.project')
-  const { contextSafe } = useGSAP()
 
-  const [mobActiveSlide, setMobActiveSlide] = useState(0)
-  const { theme } = useTheme()
-  const [currentSrc, setCurrentSrc] = useState(arrowLong)
+  const swiperRef = useRef<SwiperCore | null>(null)
 
-  useEffect(() => {
-    setCurrentSrc(theme === 'dark' ? arrowLong : arrowLongLight)
-  }, [theme])
+  const headerRef = useRef<HTMLHeadingElement>(null)
+  const sliderContainerRef = useRef<HTMLDivElement>(null)
 
-  useGSAP(
-    () => {
-      gsap.to('.project-mob-wrapper', {
-        height: 'auto',
-        minHeight: '452px',
-        duration: 0.3,
-        ease: 'power2.out',
-      })
+  const handlePrev = () => swiperRef.current?.slidePrev()
+  const handleNext = () => swiperRef.current?.slideNext()
 
-      gsap.to('.project-mob-h3', {
-        opacity: 1,
-        duration: 1,
-        ease: 'power2.out',
-      })
+  const [activeIndex, setActiveIndex] = useState(0)
 
-      gsap.to('.project-mob-description', {
-        height: 'auto',
-        opacity: 1,
-        duration: 1,
-        ease: 'power2.out',
-      })
-      gsap.to('.project-mob-description-hidden', {
-        height: '0px',
-        opacity: 0,
-        duration: 1,
-        ease: 'power2.out',
-      })
-
-      gsap.to('.project-mob-wrapper-hidden', {
-        height: '452px',
-        duration: 0.5,
-        ease: 'power2.out',
-      })
-    },
-    { dependencies: [mobActiveSlide] },
-  )
-
-  const handleMouseEnter = contextSafe((index: number) => {
-    const serviceRef = projectsRefs.current[index]
-    const descriptionRef = descriptionRefs.current[index]
-
-    gsap.to(descriptionRef, {
-      height: 'auto',
-      opacity: 1,
-      duration: 1.5,
-      ease: 'power2.out',
-      overwrite: true,
-    })
-
-    gsap.to(serviceRef, {
-      height: 'max-content',
-      minHeight: '552px',
-      duration: 0.7,
-      ease: 'power2.out',
-      overwrite: true,
-    })
-
-    gsap.to(serviceRef.querySelectorAll('.icon-item'), {
-      opacity: 1,
-      duration: 0.7,
-      stagger: 0.1,
-      height: 'auto',
-      ease: 'power2.out',
-      overwrite: true,
-    })
-  })
-
-  const handleMouseLeave = contextSafe((index: number) => {
-    const serviceRef = projectsRefs.current[index]
-    const descriptionRef = descriptionRefs.current[index]
-
-    gsap.to(descriptionRef, {
-      height: '0px',
-      opacity: 0,
-      duration: 1.5,
-      ease: 'power2.out',
-      overwrite: true,
-    })
-
-    gsap.to(serviceRef, {
-      height: '552px',
-      duration: 0.1,
-      ease: 'power2.out',
-      overwrite: true,
-    })
-
-    gsap.to(serviceRef.querySelectorAll('.icon-item'), {
-      opacity: 0,
-      duration: 0.3,
-      stagger: 0.1,
-      height: 0,
-      ease: 'power2.out',
-      overwrite: true,
-    })
-  })
-
-  const animateTechnologiesIn = (el: HTMLElement | null, delay: number) => {
-    if (el) {
-      gsap.to(el, {
-        opacity: 1,
-        height: 'auto',
-        duration: 0.5,
-        ease: 'power2.out',
-        delay,
-        overwrite: true,
-      })
-    }
-  }
-
-  const animateTechnologiesOut = (el: HTMLElement | null) => {
-    if (el) {
-      gsap.to(el, {
-        opacity: 0,
-        height: 0,
-        duration: 0.3,
-        ease: 'power2.out',
-        overwrite: true,
-      })
-    }
-  }
+  const width = useWindowWidth()
+  const isMobileDevice = width < 768
 
   useGSAP(() => {
-    if (descProjRef.current) {
-      const el = descProjRef.current
+    gsap.fromTo(
+      headerRef.current,
+      { opacity: 0, x: -100 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: headerRef.current,
+          start: 'top 55%',
+          end: 'top 55px',
+          toggleActions: 'play reverse play reverse',
+        },
+      },
+    )
 
-      gsap.fromTo(
-        el,
-        {
-          autoAlpha: 0,
-          y: 50,
-          scale: 0.65,
-        },
-        {
-          autoAlpha: 1,
-          y: 0,
-          scale: 1,
-          duration: 1.2,
-          ease: 'cubic-bezier(0.25, 1, 0.5, 1)',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 90%',
-            end: 'top 20%',
-            toggleActions: 'play none none reverse',
-            scrub: true,
-          },
-        },
-      )
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sliderContainerRef.current,
+        start: 'top 55%',
+        end: 'top 55px',
+        toggleActions: 'play reverse play reverse',
+      },
+    })
 
-      gsap.fromTo(
-        el,
-        {
-          autoAlpha: 1,
-          y: 0,
-        },
-        {
-          autoAlpha: 0,
-          y: 50,
-          duration: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'bottom 10%',
-            end: 'bottom -20%',
-            toggleActions: 'play none none reverse',
-          },
-        },
-      )
-    }
-  })
-
-  useGSAP(() => {
-    if (descProjRefMob.current) {
-      const elMob = descProjRefMob.current
-
-      gsap.fromTo(
-        elMob,
-        {
-          autoAlpha: 0,
-          y: 50,
-          scale: 0.85,
-        },
-        {
-          autoAlpha: 1,
-          y: 0,
-          scale: 1,
-          duration: 1.2,
-          ease: 'cubic-bezier(0.25, 1, 0.5, 1)',
-          scrollTrigger: {
-            trigger: elMob,
-            start: 'top 90%',
-            end: 'top 20%',
-            toggleActions: 'play none none reverse',
-            scrub: true,
-          },
-        },
-      )
-
-      gsap.fromTo(
-        elMob,
-        {
-          autoAlpha: 1,
-          y: 0,
-        },
-        {
-          autoAlpha: 0,
-          y: 50,
-          duration: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: elMob,
-            start: 'bottom 10%',
-            end: 'bottom -20%',
-            toggleActions: 'play none none reverse',
-          },
-        },
-      )
-    }
-  })
+    tl.fromTo(
+      sliderContainerRef.current,
+      { opacity: 0, scale: 0.6, rotation: -10, y: 50 },
+      {
+        opacity: 1,
+        scale: 1.05,
+        rotation: 0,
+        y: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+      },
+    )
+  }, [])
 
   return (
     <section aria-label="projects" id="projects">
       <div className="relative mx-auto mb-[140px] mt-[120px] max-w-[1442px] lg:px-[24px]">
         <div className="absolute -left-[100px] -top-[30px] size-[200px] flex-shrink-0 rounded-full border-black border-stone-500/30 bg-[linear-gradient(127deg,_rgba(11,_102,_245,_0.30)_49.23%,_rgba(78,_128,_206,_0.15)_83.27%,_rgba(255,_255,_255,_0.00)_102.62%)] backdrop-blur-[12.5px] dark:border dark:bg-gradient-to-tr dark:from-[rgba(255,255,255,0.12)] dark:to-[rgba(255,255,255,0)] xl:-left-[200px] xl:size-[400px]" />
         <div className="absolute right-[200px] top-[100px] -z-40 hidden h-[1900px] w-[1900px] transform bg-hero-pattern lg:block" />
-        <h2 className="my-0 mr-[20px] text-right text-[40px] font-light uppercase lg:text-[96px]">
+        <h2
+          ref={headerRef}
+          className="my-0 mr-[20px] text-right text-[40px] font-light uppercase lg:text-[96px]"
+        >
           {t('project')}
         </h2>
-        <div className="my-[32px] mr-[20px] flex flex-col items-end justify-end">
-          <div className="text-[16px] lg:text-[24px]">
-            {t('scroll-see-more')}
-          </div>
-          <Image
-            className="mr-1 mt-[10px] w-[120px] lg:mr-3 lg:w-[170px]"
-            src={currentSrc}
-            alt={t('scroll')}
-            width={130}
-            height={30}
-          />
-        </div>
-        <div ref={descProjRef} className="mt-[51px] hidden w-full xl:block">
+        <div
+          ref={sliderContainerRef}
+          className="relative mx-auto mb-[140px] mt-[120px] max-w-[1442px] lg:px-[24px]"
+        >
           <Swiper
-            slidesPerView={'auto'}
-            slidesPerGroup={3}
-            grid={{
-              rows: 2,
-              fill: 'row',
-            }}
-            spaceBetween={30}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Grid]}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: true,
-              pauseOnMouseEnter: true,
-            }}
-          >
-            {projects.map((project: IProject, index: number) => (
-              <SwiperSlide key={project.id}>
-                {!project.isEmptiness && (
-                  <a
-                    href={project.link || '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div
-                      ref={(el) => {
-                        if (el) {
-                          projectsRefs.current[index] = el
-                        }
-                      }}
-                      onMouseEnter={() => handleMouseEnter(index)}
-                      onMouseLeave={() => handleMouseLeave(index)}
-                      className="project-card group relative z-10 m-4 flex min-h-[552px] w-[398px] flex-col justify-end gap-[21px] rounded-lg border-b border-black bg-gradient-to-br from-[rgba(255,255,255,0.12)] to-[rgba(255,255,255,0.00)] px-[16px] py-[24px] backdrop-blur-[12.5px] duration-700 hover:justify-between"
-                    >
-                      <div
-                        className="animate-serv-pulse bg-group-pattern-light absolute right-12 top-10 size-[200px] dark:bg-group-pattern"
-                        style={{
-                          animationDelay: `${index * 0.5}s`,
-                        }}
-                      />
-                      <div className="overflow-hidden">
-                        <h3 className="mb-[21px] text-[60px] font-light leading-[0.9] duration-700 group-hover:text-[32px] group-hover:text-white group-hover:dark:text-[#0B66F5]">
-                          {project.title}
-                        </h3>
-                        <div className="text-[20px] font-bold text-[#0B66F5] duration-700 group-hover:text-right group-hover:text-white">
-                          {t('cooperation-with')}: &quot;{project.company}&quot;
-                        </div>
-                        <div
-                          ref={(el) => {
-                            if (el) {
-                              descriptionRefs.current[index] = el
-                            }
-                          }}
-                          className="mt-[21px] h-0 text-[20px] font-light opacity-0"
-                        >
-                          {project.description}
-                        </div>
-                      </div>
-                      <div className="flex justify-between border-t-[1px] border-amber-50">
-                        <div className="mt-5 flex flex-wrap gap-4">
-                          <div className="[153deg,rgba(255,255,255,0.12)_2.19%,rgba(255,255,255,0)_99.21%] flex size-[50px] items-center justify-center rounded-full border border-stone-500/30 bg-[#0B66F5] bg-gradient-to-r to-white/0 dark:bg-transparent">
-                            <Image src={arrowAslant} alt={t('arrow-link')} />
-                          </div>
-                          {project.technologies &&
-                            project.technologies.length >= 1 &&
-                            project.technologies.map((icon) => (
-                              <li
-                                key={icon.id}
-                                className="icon-item mt-2"
-                                style={{ opacity: 0, height: 0 }}
-                              >
-                                <Image
-                                  src={icon.icon}
-                                  alt={icon.alt}
-                                  width={34}
-                                  height={34}
-                                />
-                              </li>
-                            ))}
-                        </div>
-                        <div className="text-[64px] font-light text-[#0B66F5]">
-                          {project.count}
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                )}
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <div className="absolute bottom-[230px] right-[150px] z-30">
-            <HireMe title={t('resume')} modalTitle={t('resume')} />
-          </div>
-        </div>
-
-        <div ref={descProjRefMob} className="block w-full xl:hidden">
-          <Swiper
-            breakpoints={{
-              0: {
-                slidesPerView: 1.1,
-              },
-              350: {
-                slidesPerView: 1,
-              },
-              400: {
-                slidesPerView: 1.5,
-              },
-              600: {
-                slidesPerView: 2.1,
-              },
-              840: {
-                slidesPerView: 3,
-              },
-            }}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
-            }}
-            spaceBetween={10}
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            effect="coverflow"
+            centeredSlides={true}
+            slidesPerView="auto"
             loop={true}
-            speed={600}
-            onSlideChange={(swiper) => {
-              setMobActiveSlide(swiper.realIndex)
+            spaceBetween={30}
+            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+            coverflowEffect={{
+              rotate: 20,
+              stretch: 0,
+              depth: -20,
+              modifier: 1,
+              slideShadows: false,
             }}
+            modules={[EffectCoverflow, Pagination, Navigation]}
+            className="mySwiper"
           >
-            {projects
-              .filter((project: IProject) => !project.isEmptiness)
-              .map((project: IProject, index: number) => (
-                <SwiperSlide key={project.id} className="custom-slide">
-                  <a
-                    href={project.link || '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
+            {projects.map((slide, index) => {
+              const isActive = activeIndex === index
+              const slideWidth =
+                slide.isMobile && isActive
+                  ? `${isMobileDevice ? '200px' : '400px'}`
+                  : `${isMobileDevice ? '200px' : '250px'}`
+
+              const slideHeight =
+                !slide.isMobile && isActive
+                  ? `${isMobileDevice ? '250px' : '350px'}`
+                  : `${isMobileDevice ? '200px' : '300px'}`
+
+              return (
+                <SwiperSlide
+                  key={slide.id}
+                  className="mt-[-400px] flex items-center justify-center py-[500px]"
+                  style={{ width: slideWidth, height: '300px' }}
+                >
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.3, y: 50 }}
+                    animate={{
+                      opacity: isActive ? 1 : 0.7,
+                      scale: isActive ? 1.6 : 1,
+                      y: 0,
+                    }}
+                    transition={{ type: 'spring', stiffness: 150, damping: 15 }}
+                    className="project-card overflow-hidden rounded-2xl text-white"
+                    style={{ width: slideWidth, height: slideHeight }}
                   >
-                    <div
-                      className={`relative m-4 flex h-[452px] min-h-full w-full flex-col justify-end gap-[21px] rounded-lg border-b border-black bg-red-400 bg-gradient-to-br from-[rgba(255,255,255,0.12)] to-[rgba(255,255,255,0.00)] px-[16px] py-[24px] backdrop-blur-[12.5px] ${
-                        mobActiveSlide === index
-                          ? 'project-mob-wrapper project-card-mob'
-                          : 'project-card-mob-all project-mob-wrapper-hidden'
-                      }`}
-                    >
-                      <div className="overflow-hidden">
-                        <h3
-                          className={`text-[36px] leading-[0.9] ${
-                            mobActiveSlide === index
-                              ? 'text-[26px] text-white dark:text-[#0B66F5]'
-                              : 'project-mob-h3'
-                          }`}
-                        >
-                          {project.title}
-                        </h3>
-                        <div
-                          className={`mt-[21px] text-[#0B66F5] ${
-                            mobActiveSlide === index
-                              ? 'mb-[21px] text-white'
-                              : ''
-                          }`}
-                        >
-                          {t('cooperation-with')}: &quot;{project.company}
-                          &quot;
-                        </div>
-                        <div
-                          className={`text-[16px] font-light opacity-0 ${
-                            mobActiveSlide === index
-                              ? 'project-mob-description'
-                              : 'project-mob-description-hidden'
-                          }`}
-                        >
-                          {project.description}
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between border-t-[1px] border-amber-50 pt-4">
-                        <div className="[153deg,rgba(255,255,255,0.12)_2.19%,rgba(255,255,255,0)_99.21%] flex !size-[50px] min-w-[50px] items-center justify-center rounded-full border border-stone-500/30 bg-gradient-to-r to-white/0">
-                          <Image src={arrowAslant} alt={t('arrow-link')} />
-                        </div>
-                        <div className="ml-2 flex flex-wrap gap-4">
-                          {project.technologies &&
-                            project.technologies.length >= 1 &&
-                            project.technologies.map((icon, techIndex) => (
-                              <li
-                                key={icon.id}
-                                className="icon-item"
-                                ref={(el) => {
-                                  if (mobActiveSlide === index) {
-                                    animateTechnologiesIn(el, techIndex * 0.1)
-                                  } else {
-                                    animateTechnologiesOut(el)
-                                  }
+                    <AnimatePresence>
+                      {isActive ? (
+                        <>
+                          {slide.isMobile ? (
+                            <div className="flex h-full gap-2 p-2 md:p-4">
+                              <motion.div
+                                initial={{ opacity: 0, scale: 0.7, x: -50 }}
+                                animate={{ opacity: 1, scale: 1, x: 0 }}
+                                exit={{ opacity: 0, scale: 0.7, x: -50 }}
+                                transition={{
+                                  delay: 0.3,
+                                  type: 'spring',
+                                  stiffness: 120,
                                 }}
+                                className="relative h-full min-w-[90px] md:min-w-[170px]"
                               >
                                 <Image
-                                  src={icon.icon}
-                                  alt={icon.alt}
-                                  width={34}
-                                  height={34}
+                                  className="rounded-xl object-center"
+                                  src={slide.gif}
+                                  alt={slide.title}
+                                  fill={true}
                                 />
-                              </li>
+                              </motion.div>
+                              <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
+                                className="flex flex-col"
+                              >
+                                <h3 className="text-[20px] font-light leading-[0.9] group-hover:text-white group-hover:dark:text-[#0B66F5] md:text-[35px]">
+                                  {slide.title}
+                                </h3>
+                                <div className="my-2 text-[9px] font-bold text-[#0B66F5] duration-700 group-hover:text-right group-hover:text-white md:text-[12px]">
+                                  {t('cooperation-with')}: &quot;{slide.company}
+                                  &quot;
+                                </div>
+                                <div className="flex h-full flex-col justify-between">
+                                  <div
+                                    className="mb-2 max-w-max overflow-hidden text-[8px] md:text-[12px]"
+                                    style={{
+                                      display: '-webkit-box',
+                                      WebkitBoxOrient: 'vertical',
+                                      WebkitLineClamp: 7,
+                                    }}
+                                  >
+                                    {slide.description}
+                                  </div>
+
+                                  <div className="mt-2 flex flex-wrap items-center gap-2">
+                                    <div className="flex size-[15px] min-w-[15px] items-center justify-center rounded-full border border-stone-500/30 bg-gradient-to-r to-white/0 md:size-[20px] md:min-w-[20px]">
+                                      <Image
+                                        src={arrowAslant}
+                                        alt={t('arrow-link')}
+                                        width={5}
+                                        height={5}
+                                      />
+                                    </div>
+                                    {slide.technologies.map((tech, index) => (
+                                      <Image
+                                        key={index}
+                                        src={tech}
+                                        alt={`Technology ${index}`}
+                                        width={20}
+                                        height={20}
+                                        className="size-[10px] md:size-[20px]"
+                                      />
+                                    ))}
+                                  </div>
+                                </div>
+                              </motion.div>
+                            </div>
+                          ) : (
+                            <div className="border-white/3 flex h-full flex-col justify-between rounded-2xl border-r-2 p-2 md:p-4">
+                              <motion.div
+                                initial={{
+                                  opacity: 0,
+                                  scale: 0.8,
+                                  rotateX: 90,
+                                }}
+                                animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+                                exit={{ opacity: 0, scale: 0.8, rotateX: -90 }}
+                                transition={{
+                                  delay: 0.3,
+                                  type: 'spring',
+                                  stiffness: 120,
+                                }}
+                                className="relative h-24 w-full overflow-hidden rounded-xl md:h-32"
+                              >
+                                <Image
+                                  className="rounded-xl object-center"
+                                  src={slide.gif}
+                                  alt={slide.title}
+                                  fill={true}
+                                />
+                              </motion.div>
+                              <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
+                                exit={{ opacity: 0, y: 30 }}
+                                className="mt-2 flex flex-col justify-between"
+                              >
+                                <h3 className="text-[20px] font-light leading-[0.9] group-hover:text-white group-hover:dark:text-[#0B66F5] md:text-[35px]">
+                                  {slide.title}
+                                </h3>
+                                <div className="flex flex-col">
+                                  <div className="my-2 text-[9px] font-bold text-[#0B66F5] duration-700 group-hover:text-right group-hover:text-white md:text-[12px]">
+                                    {t('cooperation-with')}: &quot;
+                                    {slide.company}
+                                    &quot;
+                                  </div>
+                                  <div
+                                    className="mb-2 max-w-max overflow-hidden text-[8px] md:text-[12px]"
+                                    style={{
+                                      display: '-webkit-box',
+                                      WebkitBoxOrient: 'vertical',
+                                      WebkitLineClamp: 5,
+                                    }}
+                                  >
+                                    {slide.description}
+                                  </div>
+
+                                  <div className="mt-2 flex flex-wrap items-center gap-2">
+                                    <div className="flex size-[10px] min-w-[10px] items-center justify-center rounded-full border border-stone-500/30 bg-gradient-to-r to-white/0 md:size-[20px] md:min-w-[20px]">
+                                      <Image
+                                        src={arrowAslant}
+                                        alt={t('arrow-link')}
+                                        width={5}
+                                        height={5}
+                                      />
+                                    </div>
+                                    {slide.technologies.map((tech, index) => (
+                                      <Image
+                                        key={index}
+                                        src={tech}
+                                        alt={`Technology ${index}`}
+                                        width={20}
+                                        height={20}
+                                        className="size-[10px] md:size-[20px]"
+                                      />
+                                    ))}
+                                  </div>
+                                </div>
+                              </motion.div>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <motion.div className="center flex h-full flex-col justify-end p-2">
+                          <h3 className="text-[35px] font-light leading-[0.9] group-hover:text-white group-hover:dark:text-[#0B66F5]">
+                            {slide.title}
+                          </h3>
+                          <div className="my-2 text-[12px] font-bold text-[#0B66F5] duration-700 group-hover:text-right group-hover:text-white">
+                            {t('cooperation-with')}: &quot;{slide.company}
+                            &quot;
+                          </div>
+                          <div
+                            className="mb-2 max-w-max overflow-hidden text-[12px]"
+                            style={{
+                              display: '-webkit-box',
+                              WebkitBoxOrient: 'vertical',
+                              WebkitLineClamp: 5,
+                            }}
+                          >
+                            {slide.description}
+                          </div>
+
+                          <div className="mt-2 flex flex-wrap items-center gap-2">
+                            <div className="flex !size-[20px] min-w-[20px] items-center justify-center rounded-full border border-stone-500/30 bg-gradient-to-r to-white/0">
+                              <Image
+                                src={arrowAslant}
+                                alt={t('arrow-link')}
+                                width={5}
+                                height={5}
+                              />
+                            </div>
+                            {slide.technologies.map((tech, index) => (
+                              <Image
+                                key={index}
+                                src={tech}
+                                alt={`Technology ${index}`}
+                                width={20}
+                                height={20}
+                              />
                             ))}
-                        </div>
-                        <div
-                          className={`text-[64px] font-light leading-[1] text-[#0B66F5] ${
-                            mobActiveSlide === index
-                              ? 'text-white dark:text-[#0B66F5]'
-                              : ''
-                          }`}
-                        >
-                          {project.count}
-                        </div>
-                      </div>
-                    </div>
-                  </a>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
                 </SwiperSlide>
-              ))}
+              )
+            })}
           </Swiper>
+          <div className="absolute z-50 mt-[-100px] flex w-full justify-end gap-2 pr-14">
+            <button
+              onClick={handlePrev}
+              className="rounded p-2 transition-all duration-75 ease-linear hover:scale-150"
+            >
+              <FaChevronLeft />
+            </button>
+            <button
+              onClick={handleNext}
+              className="rounded p-2 transition-all duration-75 ease-linear hover:scale-150"
+            >
+              <FaChevronRight />
+            </button>
+          </div>
           <div className="mt-[41px] flex w-full justify-end">
             <HireMe title={t('resume')} modalTitle={t('resume')} />
           </div>
