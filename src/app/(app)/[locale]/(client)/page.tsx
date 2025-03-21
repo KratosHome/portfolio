@@ -1,7 +1,6 @@
 import Hero from '@/components/client/hero/hero'
 import Services from '@/components/client/services/services'
 import { servicesData } from '@/data/services'
-import Projects from '@/components/client/projects/projects'
 import { projectsData } from '@/data/projects-data'
 import 'swiper/css'
 import 'swiper/css/grid'
@@ -60,7 +59,6 @@ const Home = async ({ params }: { params: Params }) => {
       <Hero />
       <Services services={servicesData[locale]} />
       <ProjectsNew />
-      <Projects projects={projectsData[locale]} />
       <Experience experience={experienceData[locale]} />
       <Reviews data={dataReviews} />
     </>

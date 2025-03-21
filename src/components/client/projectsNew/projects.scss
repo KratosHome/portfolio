@@ -1,0 +1,17 @@
+.project-card {
+  background: var(--bg-services-card);
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-services-card-hover);
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  z-index: -1;
+}

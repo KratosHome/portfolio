@@ -26,12 +26,11 @@ import MobX from '@/assets/technologies/mobx.svg'
 import soap from '@/assets/technologies/soap.jpg'
 import xml from '@/assets/technologies/xml.svg'
 import svn from '@/assets/technologies/subversion.svg'
-//vueflow.png
 
 export const projectsNew = [
   {
     id: 1,
-    title: 'nocobot',
+    title: 'Nocobot',
     isMobile: true,
     company: 'Inc-Dev',
     description:
@@ -41,7 +40,7 @@ export const projectsNew = [
   },
   {
     id: 2,
-    title: 'copyhub',
+    title: 'Copyhub',
     isMobile: false,
     company: 'Inc-Dev',
     description:
@@ -51,7 +50,7 @@ export const projectsNew = [
   },
   {
     id: 3,
-    title: 'dios',
+    title: 'ДІОС',
     isMobile: false,
     company: 'Inc-Dev',
     description: 'employee monitoring platform',
@@ -69,7 +68,7 @@ export const projectsNew = [
   },
   {
     id: 4,
-    title: 'forbs metal',
+    title: 'Forbs Metal',
     isMobile: false,
     company: 'Inc-Dev',
     description:
@@ -88,7 +87,7 @@ export const projectsNew = [
   },
   {
     id: 6,
-    title: 'rastcom',
+    title: 'Rastcom',
     isMobile: false,
     company: 'rastcom',
     description:
@@ -98,7 +97,7 @@ export const projectsNew = [
   },
   {
     id: 7,
-    title: 'socap',
+    title: 'SOCAP',
     isMobile: true,
     company: 'Inc-Dev',
     description: 'crypto wallet, transfer mobile app for browser app',
@@ -117,7 +116,7 @@ export const projectsNew = [
   },
   {
     id: 9,
-    title: 'trstcontract',
+    title: 'Trstcontract',
     isMobile: false,
     company: 'Inc-Dev',
     description:
@@ -127,7 +126,7 @@ export const projectsNew = [
   },
   {
     id: 10,
-    title: 'virvel',
+    title: 'Virvel',
     isMobile: false,
     company: 'Inc-Dev',
     description:
