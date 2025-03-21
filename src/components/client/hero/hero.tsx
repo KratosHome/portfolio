@@ -154,7 +154,7 @@ const Hero = () => {
             </div>
           </div>
           <div className="bg-cover bg-hero-pattern" />
-          <div className="overflow-hidden">
+          <div>
             <Technologies />
           </div>
         </div>

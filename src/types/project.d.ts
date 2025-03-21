@@ -1,11 +1,9 @@
 interface IProject {
   id: number
-  isEmptiness: boolean
-  count?: string
-  title?: string
-  company?: string
-  description?: string
-  link?: string | null
-  technologies?: { id: number; icon: string; alt: string }[]
-  technologies2?: string
+  title: string
+  isMobile: boolean
+  company: string
+  description: string
+  technologies: string[]
+  gif: string
 }

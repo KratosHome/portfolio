@@ -154,6 +154,7 @@ const Experience = ({ experience }: { experience: ExperienceItem[] }) => {
                     </div>
                     <Link
                       href={item.link}
+                      target="_blank"
                       className="ml-[10px] text-[24px] text-white underline dark:text-[#0B66F5]"
                     >
                       {item.company}

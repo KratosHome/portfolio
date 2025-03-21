@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/providers/theme-provider'
 import ScrollToTop from '@/components/features/scroll-to-top'
 import StarsCanvas from '@/components/ui/star-background/star-background'
 import Footer from '@/components/layout/footer/footer'
+import SplashCursor from '@/components/ui/splash-cursor'
 
 export default async function LocaleLayout({
   children,
@@ -12,14 +13,16 @@ export default async function LocaleLayout({
   children: ReactNode
 }) {
   const messages = await getMessages()
-  //         <SplashCursor SPLAT_RADIUS={0.1} />
   return (
     <>
       <ThemeProvider attribute="class" enableSystem disableTransitionOnChange>
         <NextIntlClientProvider messages={messages}>
           <ScrollToTop />
           <StarsCanvas />
-          <main className="min-h-[90svh]">{children}</main>
+          <main className="min-h-[90svh]">
+            <SplashCursor SPLAT_RADIUS={0.1} />
+            {children}
+          </main>
           <Footer />
         </NextIntlClientProvider>
       </ThemeProvider>

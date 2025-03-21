@@ -28,9 +28,6 @@ const MainJsonLd: FC<MainJsonLdProps> = ({ services, projects, review }) => {
       position: index + 1,
       item: {
         '@type': 'CreativeWork',
-        '@id': project.link
-          ? project.link
-          : `${baseUrl}/#project-${project.id}`,
         name: project.title,
         description: project.description,
       },

@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState } from 'react'
+import React, { FC, useRef, useState } from 'react'
 import './projects.scss'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules'
@@ -11,7 +11,6 @@ import 'swiper/css/navigation'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import arrowAslant from '@/assets/icons/arrow-aslant.svg'
-import { projectsNew } from '@/data/projects'
 import { HireMe } from '@/components/client/hire-me'
 import { useWindowWidth } from '@/hooks/use-window-width'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
@@ -22,7 +21,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const ProjectsNew = () => {
+interface ProjectsNewProps {
+  projects: IProject[]
+}
+
+const ProjectsNew: FC<ProjectsNewProps> = ({ projects }) => {
   const t = useTranslations('home-page.project')
 
   const swiperRef = useRef<SwiperCore | null>(null)
@@ -112,7 +115,7 @@ const ProjectsNew = () => {
             modules={[EffectCoverflow, Pagination, Navigation]}
             className="mySwiper"
           >
-            {projectsNew.map((slide, index) => {
+            {projects.map((slide, index) => {
               const isActive = activeIndex === index
               const slideWidth =
                 slide.isMobile && isActive
@@ -335,7 +338,7 @@ const ProjectsNew = () => {
               )
             })}
           </Swiper>
-          <div className="absolute z-50 mt-[-100px] flex w-full justify-end gap-2">
+          <div className="absolute z-50 mt-[-100px] flex w-full justify-end gap-2 pr-14">
             <button
               onClick={handlePrev}
               className="rounded p-2 transition-all duration-75 ease-linear hover:scale-150"
@@ -349,7 +352,6 @@ const ProjectsNew = () => {
               <FaChevronRight />
             </button>
           </div>
-
           <div className="mt-[41px] flex w-full justify-end">
             <HireMe title={t('resume')} modalTitle={t('resume')} />
           </div>
