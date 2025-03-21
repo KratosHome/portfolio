@@ -156,7 +156,6 @@ const Footer = () => {
   return (
     <footer className="relative pt-[150px] lg:pt-[250px]">
       {loading && <Loader />}
-      <div className="absolute -right-[100px] top-[200px] -z-10 h-[500px] w-[500px] rounded-full bg-gradient-to-r from-blue-300 to-blue-500 opacity-[0.10] blur-3xl lg:-top-[50px] lg:h-[900px] lg:w-[900px]" />
       <div className="relative mx-auto max-w-[1442px] px-[24px]">
         <div className="flex flex-col items-end justify-end">
           <div className="animate-scale-in-out bg-group-pattern-light absolute -top-[55px] left-0 -z-20 size-[200px] -translate-x-1/2 dark:opacity-[0.1] dark:bg-group-pattern lg:size-[200px]" />
@@ -304,9 +303,9 @@ const Footer = () => {
                     </FormItem>
                   )}
                 />
-                <div className="mt-[24px] px-10 lg:w-[400px] lg:flex-row lg:items-start lg:px-0">
+                <div className="mt-[24px] md:px-10 lg:w-[400px] lg:flex-row lg:items-start lg:px-0">
                   <ReCAPTCHA
-                    className="recaptcha !max-w-12"
+                    className="recaptcha !ml-[-15px]"
                     sitekey={`${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
                     ref={recaptchaRef}
                     onChange={handleCaptchaSubmission}

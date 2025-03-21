@@ -4,7 +4,7 @@ import logoAlex from '@/assets/reviews/Alex.jpeg'
 import logoEtere from '@/assets/reviews/etere.webp'
 import logoJuli from '@/assets/reviews/Juli.jpeg'
 
-export const dataReviews = [
+export const dataReviews: IReview[] = [
   {
     _id: 1,
     userName: 'Alex',
