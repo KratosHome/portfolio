@@ -38,7 +38,6 @@ export function Navbar({ className }: NavbarProps) {
             <HoveredLink href="#projects">{t('projects')}</HoveredLink>
             <HoveredLink href="#experience">{t('experience')}</HoveredLink>
             <HoveredLink href="#reviews">{t('reviews')}</HoveredLink>
-            <HoveredLink href="#faq">{t('faq')}</HoveredLink>
             <HoveredLink href="#contact">{t('contact')}</HoveredLink>
           </div>
         </MenuItem>
