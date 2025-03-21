@@ -74,6 +74,10 @@
 html {
   scroll-behavior: smooth;
 }
+html, body {
+  overflow-x: hidden;
+}
+
 
 
 @layer base {
@@ -131,6 +135,7 @@ html {
     --chart-5: 340 75% 55%;
   }
 }
+
 
 
 @layer base {
