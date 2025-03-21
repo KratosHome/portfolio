@@ -161,6 +161,7 @@ const Projects: FC<ProjectsNewProps> = ({ projects }) => {
                                 className="relative h-full min-w-[90px] md:min-w-[170px]"
                               >
                                 <Image
+                                  placeholder="blur"
                                   priority
                                   className="rounded-xl object-center"
                                   src={slide.gif}
@@ -196,6 +197,7 @@ const Projects: FC<ProjectsNewProps> = ({ projects }) => {
                                   <div className="mt-2 flex flex-wrap items-center gap-2">
                                     <div className="flex size-[15px] min-w-[15px] items-center justify-center rounded-full border border-stone-500/30 bg-gradient-to-r to-white/0 md:size-[20px] md:min-w-[20px]">
                                       <Image
+                                        placeholder="blur"
                                         priority
                                         src={arrowAslant}
                                         alt={t('arrow-link')}
@@ -205,6 +207,7 @@ const Projects: FC<ProjectsNewProps> = ({ projects }) => {
                                     </div>
                                     {slide.technologies.map((tech, index) => (
                                       <Image
+                                        placeholder="blur"
                                         priority
                                         key={index}
                                         src={tech}
@@ -236,6 +239,7 @@ const Projects: FC<ProjectsNewProps> = ({ projects }) => {
                                 className="relative h-24 w-full overflow-hidden rounded-xl md:h-32"
                               >
                                 <Image
+                                  placeholder="blur"
                                   priority
                                   className="rounded-xl object-center"
                                   src={slide.gif}
@@ -273,6 +277,7 @@ const Projects: FC<ProjectsNewProps> = ({ projects }) => {
                                   <div className="mt-2 flex flex-wrap items-center gap-2">
                                     <div className="flex size-[10px] min-w-[10px] items-center justify-center rounded-full border border-stone-500/30 bg-gradient-to-r to-white/0 md:size-[20px] md:min-w-[20px]">
                                       <Image
+                                        placeholder="blur"
                                         priority
                                         src={arrowAslant}
                                         alt={t('arrow-link')}
@@ -282,6 +287,7 @@ const Projects: FC<ProjectsNewProps> = ({ projects }) => {
                                     </div>
                                     {slide.technologies.map((tech, index) => (
                                       <Image
+                                        placeholder="blur"
                                         priority
                                         key={index}
                                         src={tech}
@@ -320,6 +326,7 @@ const Projects: FC<ProjectsNewProps> = ({ projects }) => {
                           <div className="mt-2 flex flex-wrap items-center gap-2">
                             <div className="flex !size-[20px] min-w-[20px] items-center justify-center rounded-full border border-stone-500/30 bg-gradient-to-r to-white/0">
                               <Image
+                                placeholder="blur"
                                 priority
                                 src={arrowAslant}
                                 alt={t('arrow-link')}
@@ -329,6 +336,7 @@ const Projects: FC<ProjectsNewProps> = ({ projects }) => {
                             </div>
                             {slide.technologies.map((tech, index) => (
                               <Image
+                                placeholder="blur"
                                 priority
                                 key={index}
                                 src={tech}

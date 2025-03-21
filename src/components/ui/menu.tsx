@@ -121,6 +121,8 @@ export const ProductItem = ({
       className="group flex space-x-2 transition-all duration-300 ease-out hover:scale-105"
     >
       <Image
+        placeholder="blur"
+        priority
         src={src}
         width={140}
         height={70}
