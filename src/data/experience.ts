@@ -7,7 +7,7 @@ const experienceDataUk = [
     workPlace: 'Віддалено',
     description:
       'Безліч різних проєктів, різної складності від малих лендігів з цікавою анімцює до великих корпоративних сайтів.',
-    date: '02.2024 - 04.2025',
+    date: '03.2024 - 05.2025',
     technologies: [
       'React',
       'NextJs',
@@ -28,7 +28,7 @@ const experienceDataUk = [
     workPlace: 'Віддалено',
     description:
       'Платформа для замовлення послуг. Працював над розробкою календаря, чату, системи доступу на основі рівнів підписки, профілів користувачів, верифікації, адмін-панелі. Переніс проєкт на мобільні пристрої за допомогою React Native.',
-    date: '05.2023 - 01.2024',
+    date: '05.2023 - 04.2024',
     technologies: [
       'React',
       'React Native',
@@ -142,7 +142,7 @@ const experienceDataEn = [
     workPlace: 'Remote',
     description:
       'Numerous projects of varying complexity — from small landing pages with engaging animations to large-scale corporate websites.',
-    date: '02.2024 - 04.2025',
+    date: '03.2024 - 05.2025',
     technologies: [
       'React',
       'Next.js',
@@ -163,7 +163,7 @@ const experienceDataEn = [
     workPlace: 'Remote',
     description:
       'Service ordering platform. Developed the calendar, chat, subscription-based access system, user profiles, verification, and admin panel. Adapted the project for mobile using React Native.',
-    date: '05.2023 - 01.2024',
+    date: '05.2023 - 04.2024',
     technologies: [
       'React',
       'React Native',
@@ -275,7 +275,7 @@ const experienceDataDe = [
     workPlace: 'Remote',
     description:
       'Zahlreiche Projekte unterschiedlicher Komplexität – von kleinen Landingpages mit ansprechenden Animationen bis hin zu großen Unternehmenswebsites.',
-    date: '02.2024 - 04.2025',
+    date: '03.2024 - 05.2025',
     technologies: [
       'React',
       'Next.js',
@@ -296,7 +296,7 @@ const experienceDataDe = [
     workPlace: 'Remote',
     description:
       'Dienstleistungsplattform. Entwicklung von Kalender, Chat, Zugriffssystem basierend auf Abonnementstufen, Benutzerprofilen, Verifizierung und Admin-Panel. Mobile Anpassung mit React Native.',
-    date: '05.2023 - 01.2024',
+    date: '05.2023 - 04.2024',
     technologies: [
       'React',
       'React Native',
@@ -408,7 +408,7 @@ const experienceDataEs = [
     workPlace: 'Remoto',
     description:
       'Numerosos proyectos de diversa complejidad: desde pequeñas landing pages con animaciones interesantes hasta sitios corporativos de gran escala.',
-    date: '02.2024 - 04.2025',
+    date: '03.2024 - 05.2025',
     technologies: [
       'React',
       'Next.js',
@@ -429,7 +429,7 @@ const experienceDataEs = [
     workPlace: 'Remoto',
     description:
       'Plataforma para solicitar servicios. Desarrollo del calendario, chat, sistema de acceso por niveles de suscripción, perfiles de usuario, verificación y panel de administración. Adaptación del proyecto a móviles con React Native.',
-    date: '05.2023 - 01.2024',
+    date: '05.2023 - 04.2024',
     technologies: [
       'React',
       'React Native',
@@ -541,7 +541,7 @@ const experienceDataFr = [
     workPlace: 'À distance',
     description:
       'De nombreux projets de complexité variée — des petites landing pages avec des animations attrayantes aux grands sites d’entreprise.',
-    date: '02.2024 - 04.2025',
+    date: '03.2024 - 05.2025',
     technologies: [
       'React',
       'Next.js',
@@ -562,7 +562,7 @@ const experienceDataFr = [
     workPlace: 'À distance',
     description:
       'Plateforme de commande de services. Développement du calendrier, du chat, du système d’accès basé sur les niveaux d’abonnement, des profils utilisateurs, de la vérification et du panneau d’administration. Adaptation du projet aux appareils mobiles avec React Native.',
-    date: '05.2023 - 01.2024',
+    date: '05.2023 - 04.2024',
     technologies: [
       'React',
       'React Native',
@@ -674,7 +674,7 @@ const experienceDataHi = [
     workPlace: 'रिमोट',
     description:
       'विभिन्न जटिलताओं वाले कई प्रोजेक्ट — छोटे लैंडिंग पेजों से लेकर आकर्षक एनिमेशन के साथ लेकर बड़े कॉर्पोरेट वेबसाइट्स तक।',
-    date: '02.2024 - 04.2025',
+    date: '03.2024 - 05.2025',
     technologies: [
       'React',
       'Next.js',
@@ -695,7 +695,7 @@ const experienceDataHi = [
     workPlace: 'रिमोट',
     description:
       'सेवा ऑर्डरिंग प्लेटफॉर्म। कैलेंडर, चैट, सदस्यता स्तरों पर आधारित एक्सेस सिस्टम, उपयोगकर्ता प्रोफाइल, सत्यापन, और एडमिन पैनल का विकास। React Native के साथ मोबाइल डिवाइसों के लिए प्रोजेक्ट को अनुकूलित किया।',
-    date: '05.2023 - 01.2024',
+    date: '05.2023 - 04.2024',
     technologies: [
       'React',
       'React Native',
@@ -807,7 +807,7 @@ const experienceDataIt = [
     workPlace: 'Remoto',
     description:
       'Numerosi progetti di varia complessità, da piccoli landing page con animazioni accattivanti a grandi siti web aziendali.',
-    date: '02.2024 - 04.2025',
+    date: '03.2024 - 05.2025',
     technologies: [
       'React',
       'Next.js',
@@ -828,7 +828,7 @@ const experienceDataIt = [
     workPlace: 'Remoto',
     description:
       'Piattaforma per la prenotazione di servizi. Ho sviluppato il calendario, la chat, il sistema di accesso basato sui livelli di abbonamento, i profili utente, la verifica e il pannello di amministrazione. Ho adattato il progetto ai dispositivi mobili utilizzando React Native.',
-    date: '05.2023 - 01.2024',
+    date: '05.2023 - 04.2024',
     technologies: [
       'React',
       'React Native',
@@ -1206,7 +1206,7 @@ const experienceDataPt = [
     workPlace: 'Remoto',
     description:
       'Diversos projetos de diferentes níveis de complexidade — desde landing pages pequenas com animações envolventes até grandes sites corporativos.',
-    date: '02.2024 - 04.2025',
+    date: '03.2024 - 05.2025',
     technologies: [
       'React',
       'Next.js',
@@ -1227,7 +1227,7 @@ const experienceDataPt = [
     workPlace: 'Remoto',
     description:
       'Plataforma de solicitação de serviços. Trabalhei no desenvolvimento do calendário, chat, sistema de acesso baseado em níveis de assinatura, perfis de usuário, verificação e painel administrativo. Adaptei o projeto para dispositivos móveis com React Native.',
-    date: '05.2023 - 01.2024',
+    date: '05.2023 - 04.2024',
     technologies: [
       'React',
       'React Native',
@@ -1339,7 +1339,7 @@ const experienceDataSv = [
     workPlace: 'Distans',
     description:
       'Många projekt med varierande komplexitet – från små landningssidor med engagerande animationer till stora företagswebbplatser.',
-    date: '02.2024 - 04.2025',
+    date: '03.2024 - 05.2025',
     technologies: [
       'React',
       'Next.js',
@@ -1360,7 +1360,7 @@ const experienceDataSv = [
     workPlace: 'Distans',
     description:
       'Tjänstebeställningsplattform. Arbetade med utveckling av kalender, chatt, behörighetssystem baserat på prenumerationsnivåer, användarprofiler, verifiering och adminpanel. Anpassade projektet till mobila enheter med React Native.',
-    date: '05.2023 - 01.2024',
+    date: '05.2023 - 04.2024',
     technologies: [
       'React',
       'React Native',
