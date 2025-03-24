@@ -124,7 +124,7 @@ export const ProductItem = ({
       className="group flex space-x-2 transition-all duration-300 ease-out hover:scale-105"
     >
       {loading && (
-        <Skeleton className="size-[120px] rounded-md lg:size-[140px]" />
+        <Skeleton className="h-[90px] w-[90px] rounded-md bg-red-200 lg:h-[120px] lg:w-[120px]" />
       )}
       <Image
         placeholder="blur"

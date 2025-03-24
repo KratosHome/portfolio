@@ -67,7 +67,7 @@ const ProjectItem: FC<ProjectProps> = ({
                   className="relative h-full min-w-[90px] md:min-w-[170px]"
                 >
                   {loading && (
-                    <Skeleton className="h-full w-full rounded-[20px]" />
+                    <Skeleton className="h-full w-full rounded-[20px] bg-red-200" />
                   )}
                   <Image
                     priority
@@ -145,7 +145,7 @@ const ProjectItem: FC<ProjectProps> = ({
                   className="relative h-24 w-full overflow-hidden rounded-xl md:h-32"
                 >
                   {loading && (
-                    <Skeleton className="h-full w-full rounded-[20px]" />
+                    <Skeleton className="h-full w-full rounded-[20px] bg-red-200" />
                   )}
                   <Image
                     priority
