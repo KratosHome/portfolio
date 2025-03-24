@@ -4,8 +4,13 @@ import React, { ReactNode } from 'react'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import ScrollToTop from '@/components/features/scroll-to-top'
 import StarsCanvas from '@/components/ui/star-background/star-background'
-import Footer from '@/components/layout/footer/footer'
 import SplashCursor from '@/components/ui/splash-cursor'
+import dynamic from 'next/dynamic'
+import { Loader } from '@/components/ui/loader/loader'
+
+const Footer = dynamic(() => import('@/components/layout/footer/footer'), {
+  loading: () => <Loader />,
+})
 
 export default async function LocaleLayout({
   children,

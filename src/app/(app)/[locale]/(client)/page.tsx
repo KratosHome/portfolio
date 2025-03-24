@@ -1,19 +1,42 @@
 import Hero from '@/components/client/hero/hero'
-import Services from '@/components/client/services/services'
 import { servicesData } from '@/data/services'
 import 'swiper/css'
 import 'swiper/css/grid'
 import 'swiper/css/pagination'
-import Experience from '@/components/client/experience/experience'
 import { experienceData } from '@/data/experience'
-import Reviews from '@/components/client/reviews/reviews'
 import { dataReviews } from '@/data/reviews'
 import { locales } from '@/data/locales'
 import type { Metadata } from 'next'
 import { homeMateData } from '@/data/meta-data/home-meta-data'
 import MainJsonLd from '@/components/json-ld/main-kson-ld'
-import Projects from '@/components/client/projects/projects'
 import { projectsData } from '@/data/projects'
+import dynamic from 'next/dynamic'
+import { Loader } from '@/components/ui/loader/loader'
+
+const Services = dynamic(
+  () => import('@/components/client/services/services'),
+  {
+    loading: () => <Loader />,
+  },
+)
+
+const Projects = dynamic(
+  () => import('@/components/client/projects/projects'),
+  {
+    loading: () => <Loader />,
+  },
+)
+
+const Reviews = dynamic(() => import('@/components/client/reviews/reviews'), {
+  loading: () => <Loader />,
+})
+
+const Experience = dynamic(
+  () => import('@/components/client/experience/experience'),
+  {
+    loading: () => <Loader />,
+  },
+)
 
 type Params = Promise<{ locale: ILocale }>
 

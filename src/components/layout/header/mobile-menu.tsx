@@ -3,13 +3,13 @@ import { useState, useEffect } from 'react'
 import { useLocale } from 'use-intl'
 import Link from 'next/link'
 import LanguageChange from '@/components/layout/header/language-change'
-import { menuData } from '@/data/menu-data'
+import { useTranslations } from 'next-intl'
 
 export const MobileMenu = () => {
+  const t = useTranslations('header')
+
   const locale = useLocale()
   const [opened, setOpened] = useState(false)
-
-  const menu = menuData[locale as keyof typeof menuData]
 
   useEffect(() => {
     if (opened) {
@@ -40,16 +40,41 @@ export const MobileMenu = () => {
         <div className={menuClasses} onClick={(e) => e.stopPropagation()}>
           <nav>
             <ul>
-              {menu.map((item) => (
-                <Link
-                  key={item.name}
-                  href={`/${locale}/${item.link}`}
-                  onClick={() => setOpened(!opened)}
-                  className="from-white/12 mb-[12px] block rounded-lg border-b border-b-stone-500/60 bg-gradient-to-tr to-white/0 px-[12px] py-[8px] text-[16px] font-light backdrop-blur-[12.5px]"
-                >
-                  <span>{item.name}</span>
-                </Link>
-              ))}
+              <Link
+                href={`/${locale}/#services`}
+                onClick={() => setOpened(!opened)}
+                className="from-white/12 mb-[12px] block rounded-lg border-b border-b-stone-500/60 bg-gradient-to-tr to-white/0 px-[12px] py-[8px] text-[16px] font-light backdrop-blur-[12.5px]"
+              >
+                <span>{t('services')}</span>
+              </Link>
+              <Link
+                href={`/${locale}/#projects`}
+                onClick={() => setOpened(!opened)}
+                className="from-white/12 mb-[12px] block rounded-lg border-b border-b-stone-500/60 bg-gradient-to-tr to-white/0 px-[12px] py-[8px] text-[16px] font-light backdrop-blur-[12.5px]"
+              >
+                <span>{t('projects')}</span>
+              </Link>
+              <Link
+                href={`/${locale}/#experience`}
+                onClick={() => setOpened(!opened)}
+                className="from-white/12 mb-[12px] block rounded-lg border-b border-b-stone-500/60 bg-gradient-to-tr to-white/0 px-[12px] py-[8px] text-[16px] font-light backdrop-blur-[12.5px]"
+              >
+                <span>{t('experience')}</span>
+              </Link>
+              <Link
+                href={`/${locale}/#reviews`}
+                onClick={() => setOpened(!opened)}
+                className="from-white/12 mb-[12px] block rounded-lg border-b border-b-stone-500/60 bg-gradient-to-tr to-white/0 px-[12px] py-[8px] text-[16px] font-light backdrop-blur-[12.5px]"
+              >
+                <span>{t('reviews')}</span>
+              </Link>
+              <Link
+                href={`/${locale}/#contact`}
+                onClick={() => setOpened(!opened)}
+                className="from-white/12 mb-[12px] block rounded-lg border-b border-b-stone-500/60 bg-gradient-to-tr to-white/0 px-[12px] py-[8px] text-[16px] font-light backdrop-blur-[12.5px]"
+              >
+                <span>{t('contact')}</span>
+              </Link>
             </ul>
           </nav>
           <div className="flex items-center justify-between">
