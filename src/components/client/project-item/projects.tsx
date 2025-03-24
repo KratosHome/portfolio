@@ -75,6 +75,7 @@ const ProjectItem: FC<ProjectProps> = ({
                     src={project.gif}
                     alt={project.title}
                     fill={true}
+                    onLoadingComplete={() => setLoading(false)}
                   />
                 </motion.div>
                 <motion.div

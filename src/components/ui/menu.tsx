@@ -1,9 +1,10 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
+import { Skeleton } from '@/components/ui/skeleton'
 
 const transition = {
   type: 'spring',
@@ -107,6 +108,8 @@ export const ProductItem = ({
   src: string
   openInNewTab?: boolean
 }) => {
+  const [loading, setLoading] = useState(true)
+
   const maxLength = 90
   const shortText =
     description.length > maxLength
@@ -120,6 +123,9 @@ export const ProductItem = ({
       rel={openInNewTab ? 'noopener noreferrer' : undefined}
       className="group flex space-x-2 transition-all duration-300 ease-out hover:scale-105"
     >
+      {loading && (
+        <Skeleton className="size-[120px] rounded-md lg:size-[140px]" />
+      )}
       <Image
         placeholder="blur"
         priority
@@ -128,6 +134,7 @@ export const ProductItem = ({
         height={70}
         alt={title}
         className="group-hover:shadow-3xl size-[120px] flex-shrink-0 rounded-md object-cover shadow-lg transition-all duration-300 ease-out group-hover:size-[120px] lg:size-[140px] lg:group-hover:size-[140px]"
+        onLoadingComplete={() => setLoading(false)}
       />
       <div className="transition-all duration-300 ease-out group-hover:translate-y-[-2px]">
         <h4 className="mb-1 text-xl font-bold text-black group-hover:text-primary dark:text-white">
