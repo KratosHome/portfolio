@@ -14,7 +14,7 @@ export default async function Page(props: {
 }) {
   const url = process.env.NEXT_URL
 
-  if (url === 'https://codecraftmaster.com/') {
+  if (process.env.NODE_ENV != 'development') {
     return notFound()
   }
 

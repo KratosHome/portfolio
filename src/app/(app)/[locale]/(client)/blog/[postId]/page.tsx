@@ -10,7 +10,7 @@ export default async function Page({ params }: { params: Params }) {
   const { locale, postId } = await params
   const url = process.env.NEXT_URL
 
-  if (url === 'https://codecraftmaster.com/') {
+  if (process.env.NODE_ENV != 'development') {
     return notFound()
   }
 
