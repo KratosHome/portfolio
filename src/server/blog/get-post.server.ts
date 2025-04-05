@@ -1,10 +1,12 @@
-import { connectToDb } from '@/server/connectToDb'
-import { Post } from '@/server/blog/blog-schema'
+'use server'
+import { connectToDbServer } from '@/server/connect-to-db.server'
+import { Post } from '@/server/blog/blog-schema.server'
 import { User } from '@/server/users/user-schema.server'
 
 export const getPost = async (url: string, local: string) => {
+  'use server'
   try {
-    await connectToDb()
+    await connectToDbServer()
 
     const post = await Post.findOne({ url: `${url}-${local}`, local: local })
     if (!post) {

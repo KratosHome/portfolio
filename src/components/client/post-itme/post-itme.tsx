@@ -5,9 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useLocale } from 'use-intl'
 import { useTheme } from 'next-themes'
-import { formatDate } from '@/lib/formatDate'
+import { formatDate } from '@/lib/format-date'
 import { CardBody, CardContainer, CardItem } from '@/components/ui/3d-card'
-import { removeLocaleFromUrl } from '@/lib/remove-locale-from-url'
 
 interface BlogListType {
   item: IPost
@@ -28,10 +27,8 @@ export const PostItem: FC<BlogListType> = ({ item }) => {
     }
   }, [item.subTitle])
 
-  const cleanUrl = removeLocaleFromUrl(item.url)
-
   return (
-    <Link href={`/${locale}/blog/${cleanUrl}`}>
+    <Link href={`/${locale}/blog/${item.url}`}>
       <CardContainer className="inter-var">
         <CardBody className="post-item-card block h-[550px] max-w-[396px] rounded-md border border-black bg-gradient-to-br from-white/20 to-white/0 p-1">
           <CardItem

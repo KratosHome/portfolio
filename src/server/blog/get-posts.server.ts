@@ -1,5 +1,6 @@
-import { connectToDb } from '@/server/connectToDb'
-import { Post } from '@/server/blog/blog-schema'
+'use server'
+import { connectToDbServer } from '@/server/connect-to-db.server'
+import { Post } from '@/server/blog/blog-schema.server'
 import { User } from '@/server/users/user-schema.server'
 
 interface QueryType {
@@ -17,8 +18,9 @@ export const getPosts = async (
   filters?: string | string[],
   authors?: string | string[],
 ) => {
+  'use server'
   try {
-    await connectToDb()
+    await connectToDbServer()
     const skip = (page - 1) * limit
 
     const uniqueCategories = await Post.distinct('categories', { local: local })

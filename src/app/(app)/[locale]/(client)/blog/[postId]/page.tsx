@@ -1,6 +1,6 @@
 import { ButtonBeck } from '@/components/client/button-beck'
 import { notFound } from 'next/navigation'
-import { formatDate } from '@/lib/formatDate'
+import { formatDate } from '@/lib/format-date'
 import { fetchTags } from '@/data/fetch-tags'
 import 'quill/dist/quill.snow.css'
 

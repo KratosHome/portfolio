@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const blogSchema = new mongoose.Schema(
+const blogSchemaServer = new mongoose.Schema(
   {
     postId: {
       type: String,
@@ -98,4 +98,5 @@ const blogSchema = new mongoose.Schema(
   { timestamps: true },
 )
 
-export const Post = mongoose.models?.Post || mongoose.model('Post', blogSchema)
+export const Post =
+  mongoose.models?.Post || mongoose.model('Post', blogSchemaServer)

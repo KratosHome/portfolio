@@ -1,3 +1,4 @@
+'use server'
 import mongoose from 'mongoose'
 
 interface Connection {
@@ -6,7 +7,8 @@ interface Connection {
 
 const connection: Connection = {}
 
-export const connectToDb = async () => {
+export const connectToDbServer = async () => {
+  'use server'
   try {
     if (connection.isConnected) {
       console.error('Using existing connection')

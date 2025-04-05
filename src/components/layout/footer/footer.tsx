@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useEffect, useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
-import { verifyCaptcha } from '@/server/verifyCaptcha'
+import { verifyCaptchaServer } from '@/server/verify-captcha.server'
 import { messageMe } from '@/server/telegram/message-me.server'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -121,7 +121,7 @@ const Footer = () => {
   })
 
   async function handleCaptchaSubmission(token: string | null) {
-    await verifyCaptcha(token)
+    await verifyCaptchaServer(token)
       .then(() => setIsVerified(true))
       .catch(() => setIsVerified(false))
   }

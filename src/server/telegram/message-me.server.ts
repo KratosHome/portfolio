@@ -1,6 +1,6 @@
 'use server'
 import TelegramBot from 'node-telegram-bot-api'
-import { formatDate } from '@/lib/formatDate'
+import { formatDate } from '@/lib/format-date'
 
 interface FormData {
   locale: string
@@ -12,6 +12,7 @@ interface FormData {
 }
 
 export async function messageMe(formData: FormData) {
+  'use server'
   try {
     const formattedDate = formatDate(new Date())
     const bot = new TelegramBot(`${process.env.TELEGRAM_BOT_TOKEN}`, {

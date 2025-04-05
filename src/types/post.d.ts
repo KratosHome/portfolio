@@ -11,11 +11,6 @@ interface ILike {
   timestamp: Date | string
 }
 
-interface IDizLike {
-  userId: string
-  timestamp: Date | string
-}
-
 interface IPost {
   _id: string
   postId: string
@@ -31,15 +26,9 @@ interface IPost {
   isPublished: boolean
   read: number
   likes: ILike[]
-  dizLikes: IDizLike[]
+  dizLikes: ILike[]
   comments: ICommentPost[]
   createdAt: Date | string
   updatedAt?: Date
   authorUsername: string
-}
-
-interface IPostWithUserDetails extends IPost {
-  authorId?: string
-  authorUsername?: string
-  authorUserLogo?: string
 }

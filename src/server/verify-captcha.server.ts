@@ -1,6 +1,7 @@
 'use server'
 
-export async function verifyCaptcha(token: string | null) {
+export async function verifyCaptchaServer(token: string | null) {
+  'use server'
   const response = await fetch(
     `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
     {

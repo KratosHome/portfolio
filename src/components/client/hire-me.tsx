@@ -2,7 +2,7 @@
 import { FC, useRef, useState, Fragment } from 'react'
 import { useTranslations } from 'next-intl'
 import ReCAPTCHA from 'react-google-recaptcha'
-import { verifyCaptcha } from '@/server/verifyCaptcha'
+import { verifyCaptchaServer } from '@/server/verify-captcha.server'
 import { messageMe } from '@/server/telegram/message-me.server'
 import { useLocale } from 'use-intl'
 import { Button } from '@/components/ui/button'
@@ -69,7 +69,7 @@ export const HireMe: FC<HireMeProps> = ({ title, modalTitle }) => {
   }
 
   async function handleCaptchaSubmission(token: string | null) {
-    await verifyCaptcha(token)
+    await verifyCaptchaServer(token)
       .then(() => setIsVerified(true))
       .catch(() => setIsVerified(false))
   }
