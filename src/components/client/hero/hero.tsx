@@ -241,7 +241,7 @@ const Hero = () => {
       <div className="relative mx-auto max-w-[1442px]">
         <div
           ref={planetRef}
-          className="absolute -right-[150px] bottom-0 -mt-[290px] rotate-[25deg] overflow-hidden opacity-0"
+          className="absolute -right-[150px] bottom-0 -mt-[290px] rotate-[25deg] opacity-0"
         >
           <div className="relative max-h-[500px] max-w-[500px]">
             <div className="circle-hero absolute right-[100px] ml-[110px] mt-[70px] size-[125px] rounded-full bg-[rgba(255,255,255,0.3)] p-[135px] opacity-40 blur-2xl" />
